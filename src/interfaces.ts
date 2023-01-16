@@ -23,6 +23,7 @@ export interface ISubmitResource {
   week: number;
   usedreview: string;
   reason: string;
+  userid: number;
 }
 
 export interface ILike {
