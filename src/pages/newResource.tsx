@@ -1,0 +1,2 @@
+import { IResource } from "../interfaces";
+
