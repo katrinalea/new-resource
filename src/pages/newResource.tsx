@@ -8,7 +8,6 @@ interface IProps {
 export default function NewResource(props: IProps): JSX.Element {
   const [tagsArray, setTagsArray] = useState<string[]>([]);
 
-  console.log(tagsArray);
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
     url: "",
     author: "",
@@ -26,6 +25,11 @@ export default function NewResource(props: IProps): JSX.Element {
     console.log("submitting");
 
     // post request to db
+  }
+
+  function createTagsList(tag: string) {
+    setTagsArray([...tagsArray, tag]);
+    console.log(tagsArray);
   }
 
   return (
@@ -99,11 +103,11 @@ export default function NewResource(props: IProps): JSX.Element {
         </select>
 
         <p>Resource tags: Select all that are relevant</p>
-        <button onClick={() => setTagsArray([...tagsArray, "javascript"])}>
+        <button onClick={() => createTagsList("javascript")}>
           {" "}
           Javascript{" "}
         </button>
-        <button onClick={() => setTagsArray([...tagsArray, "typescript"])}>
+        <button onClick={() => createTagsList("typescript")}>
           {" "}
           Typescript{" "}
         </button>
@@ -119,7 +123,7 @@ export default function NewResource(props: IProps): JSX.Element {
           {" "}
           SQL{" "}
         </button>
-        <button onClick={() => setTagsArray([...tagsArray, "front-end"])}>
+        <button onClick={() => setTagsArray((prev) => [...prev, "front-end"])}>
           {" "}
           Front End{" "}
         </button>
