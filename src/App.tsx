@@ -1,7 +1,15 @@
-import { greet } from "./utils/greet";
+import HomePage from "./pages/home";
+import NewResource from "./pages/newResource";
+import ToDoList from "./pages/toDoList";
 
 function App(): JSX.Element {
-  return <h1>{greet("World")}</h1>;
+  return (
+    <div>
+      <HomePage />
+      <NewResource />
+      <ToDoList />
+    </div>
+  );
 }
 
 export default App;
