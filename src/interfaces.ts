@@ -3,12 +3,24 @@ export interface IResource {
   url: string;
   author: string;
   title: string;
-  desc: string;
+  description: string;
   tags: string[];
   type: string;
   week: number;
   timeStamp: string;
   userid: number;
+  usedreview: string;
+  reason: string;
+}
+
+export interface ISubmitResource {
+  url: string;
+  author: string;
+  title: string;
+  description: string;
+  tags: string[];
+  type: string;
+  week: number;
   usedreview: string;
   reason: string;
 }
