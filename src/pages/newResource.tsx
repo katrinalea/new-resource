@@ -23,9 +23,10 @@ export default function NewResource(): JSX.Element {
   return (
     <div>
       <p>Create a new resource</p>
+      <p> {resourceSubmit.title}</p>
       <form>
         <p>Resource Title:</p>
-        <input type="text" placeholder="" />
+        <input type="text" placeholder="" value = {resourceSubmit.title} onChange = {(e) => setResourceSubmit({...resourceSubmit, title: e.target.value})}/>
         <p>Author Name:</p>
         <input type="text" placeholder="" />
         <p>Resource URL:</p>
