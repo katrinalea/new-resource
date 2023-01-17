@@ -3,7 +3,15 @@ import { useEffect, useState } from "react";
 import { url } from "../App";
 import { IUser } from "../interfaces";
 
-export default function HomePage(): JSX.Element {
+interface IHomePageProps {
+  userID: number | null;
+  setUserID: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
+export default function HomePage({
+  userID,
+  setUserID,
+}: IHomePageProps): JSX.Element {
   const [users, setUsers] = useState<IUser[]>([]);
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
 
