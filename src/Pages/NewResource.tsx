@@ -10,7 +10,6 @@ interface IProps {
 export default function NewResource(props: IProps): JSX.Element {
   const [tagsArray, setTagsArray] = useState<string[]>([]);
 
-
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
     resource_url: "",
     author_name: "",
@@ -33,11 +32,19 @@ export default function NewResource(props: IProps): JSX.Element {
   }
 
   async function handleSubmitResource(resource: ISubmitResource) {
-    await axios.post(`${url}/resources`, resource)
+    await axios.post(`${url}/resources`, resource);
   }
 
-
-  const technologies = ["React", "Typescript", "Javascript", "Front-end", "Back-end", "CSS", "HTML", "SQL"]
+  const technologies = [
+    "React",
+    "Typescript",
+    "Javascript",
+    "Front-end",
+    "Back-end",
+    "CSS",
+    "HTML",
+    "SQL",
+  ];
   return (
     <div>
       <p>Create a new resource</p>
@@ -52,7 +59,10 @@ export default function NewResource(props: IProps): JSX.Element {
           placeholder=""
           value={resourceSubmit.resource_name}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, resource_name: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              resource_name: e.target.value,
+            })
           }
         />
         <p>Author Name:</p>
@@ -61,7 +71,10 @@ export default function NewResource(props: IProps): JSX.Element {
           placeholder=""
           value={resourceSubmit.author_name}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, author_name: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              author_name: e.target.value,
+            })
           }
         />
         <p>Resource URL:</p>
@@ -70,7 +83,10 @@ export default function NewResource(props: IProps): JSX.Element {
           placeholder=""
           value={resourceSubmit.resource_url}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, resource_url: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              resource_url: e.target.value,
+            })
           }
         />
         <p>Resource description:</p>
@@ -104,7 +120,10 @@ export default function NewResource(props: IProps): JSX.Element {
         <p> Type of resource: </p>
         <select
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, content_type: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              content_type: e.target.value,
+            })
           }
         >
           <option value="read">Read only</option>
@@ -113,13 +132,18 @@ export default function NewResource(props: IProps): JSX.Element {
         </select>
 
         <p>Resource tags: Select all that are relevant</p>
-        {technologies.map(tech =>
-          <button key = {tech} onClick={() => handleAddToTagsArray(tech)}>
-         {tech}</button>)}
+        {technologies.map((tech) => (
+          <button key={tech} onClick={() => handleAddToTagsArray(tech)}>
+            {tech}
+          </button>
+        ))}
         <p>Have you used this?</p>
         <select
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, usage_status: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              usage_status: e.target.value,
+            })
           }
         >
           <option value="used">Used this resource and loved it!</option>
@@ -136,7 +160,10 @@ export default function NewResource(props: IProps): JSX.Element {
           placeholder=""
           value={resourceSubmit.recommendation_reason}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, recommendation_reason: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              recommendation_reason: e.target.value,
+            })
           }
         />
       </form>
