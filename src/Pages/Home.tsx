@@ -28,9 +28,12 @@ export default function HomePage({
   return (
     <div>
       <p>Home</p>
-      <select onChange={(e) => setLoggedInUser(e.target.value)}>
+      <select onChange={(e) => setUserID(Number(e.target.value))}>
+        <option selected={true} disabled>
+          select a profile
+        </option>
         {users.map((user) => (
-          <option key={user.user_name} value={user.user_name}>
+          <option key={user.user_id} value={Number(user.user_id)}>
             {user.user_name}
           </option>
         ))}
