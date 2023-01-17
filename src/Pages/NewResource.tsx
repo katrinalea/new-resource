@@ -3,11 +3,11 @@ import { useState } from "react";
 import axios from "axios";
 import { url } from "../App";
 
-interface IProps {
-  usernameid: number;
+interface INewResourceProps {
+  userID: number | null;
 }
 
-export default function NewResource(props: IProps): JSX.Element {
+export default function NewResource(props: INewResourceProps): JSX.Element {
   const [tagsArray, setTagsArray] = useState<string[]>([]);
 
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
@@ -20,7 +20,7 @@ export default function NewResource(props: IProps): JSX.Element {
     content_type: "",
     usage_status: "",
     recommendation_reason: "",
-    user_id: props.usernameid,
+    user_id: props.userID,
   });
 
   function handleAddToTagsArray(tag: string) {
