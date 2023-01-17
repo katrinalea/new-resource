@@ -1,5 +1,7 @@
-import { ISubmitResource } from "../interfaces";
+import { IResource, ISubmitResource } from "../interfaces";
 import { useState } from "react";
+import axios from "axios";
+import { url } from "../App";
 
 interface IProps {
   usernameid: number;
@@ -8,7 +10,6 @@ interface IProps {
 export default function NewResource(props: IProps): JSX.Element {
   const [tagsArray, setTagsArray] = useState<string[]>([]);
 
-  console.log(tagsArray);
 
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
     resource_url: "",
@@ -31,10 +32,8 @@ export default function NewResource(props: IProps): JSX.Element {
     }
   }
 
-  function handleSubmitResource() {
-    console.log("submitting");
-
-    // post request to db
+  async function handleSubmitResource(resource: ISubmitResource) {
+    await axios.post(`${url}/resources`, resource)
   }
 
 
