@@ -3,6 +3,8 @@ import NewResource from "./Pages/NewResource";
 import ToDoList from "./Pages/ToDoList";
 import { useState } from "react";
 import { IUser } from "./interfaces";
+import { Routes, Route, NavLink } from "react-router-dom";
+
 export const url =
   process.env.NODE_ENV === "production"
     ? "https://coding-resources-backend.onrender.com"
@@ -17,9 +19,14 @@ function App(): JSX.Element {
 
   return (
     <div>
-      <HomePage />
-      <NewResource usernameid={user.user_id} />
-      <ToDoList />
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage userID={userID} setUserID={setUserID} />}
+        />
+        <Route path="/add-resource" element={<NewResource userID={userID} />} />
+        <Route path="/:userID/to-do-list" element={<ToDoList />} />
+      </Routes>
     </div>
   );
 }
