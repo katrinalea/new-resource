@@ -13,7 +13,6 @@ export default function HomePage({
   setUserID,
 }: IHomePageProps): JSX.Element {
   const [users, setUsers] = useState<IUser[]>([]);
-  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
 
   useEffect(() => {
     const endpoint = url + "/users";
