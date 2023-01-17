@@ -15,6 +15,11 @@ function App(): JSX.Element {
 
   return (
     <div>
+      <div className="navbar">
+        <NavLink to="/">Homepage</NavLink>
+        <NavLink to="/add-resource">Add Resource</NavLink>
+        {userID && <NavLink to={`/${userID}/to-do-list`}>To-Do List</NavLink>}
+      </div>
       <Routes>
         <Route
           path="/"
