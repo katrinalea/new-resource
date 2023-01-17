@@ -8,6 +8,8 @@ interface IProps {
 export default function NewResource(props: IProps): JSX.Element {
   const [tagsArray, setTagsArray] = useState<string[]>([]);
 
+  console.log(tagsArray);
+
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
     url: "",
     author: "",
@@ -21,21 +23,28 @@ export default function NewResource(props: IProps): JSX.Element {
     userid: props.usernameid,
   });
 
+  function handleAddToTagsArray(tag: string) {
+    if (!tagsArray.includes(tag)) {
+      setTagsArray([...tagsArray, tag]);
+    } else {
+      setTagsArray(tagsArray.filter((item) => item !== tag));
+    }
+  }
+
   function handleSubmitResource() {
     console.log("submitting");
 
     // post request to db
   }
 
-  function createTagsList(tag: string) {
-    setTagsArray([...tagsArray, tag]);
-    console.log(tagsArray);
-  }
-
   return (
     <div>
       <p>Create a new resource</p>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <p>Resource Title:</p>
         <input
           type="text"
@@ -63,7 +72,7 @@ export default function NewResource(props: IProps): JSX.Element {
             setResourceSubmit({ ...resourceSubmit, url: e.target.value })
           }
         />
-        <p>Resource description</p>
+        <p>Resource description:</p>
         <input
           type="text"
           placeholder=""
@@ -75,7 +84,7 @@ export default function NewResource(props: IProps): JSX.Element {
             })
           }
         />
-        <p> Week to complete</p>
+        <p> Week to complete:</p>
         <select
           onChange={(e) =>
             setResourceSubmit({
@@ -91,7 +100,7 @@ export default function NewResource(props: IProps): JSX.Element {
           <option value={5}>Week 5</option>
           <option value={6}>Week 6</option>
         </select>
-        <p> Type of resource </p>
+        <p> Type of resource: </p>
         <select
           onChange={(e) =>
             setResourceSubmit({ ...resourceSubmit, type: e.target.value })
@@ -103,31 +112,22 @@ export default function NewResource(props: IProps): JSX.Element {
         </select>
 
         <p>Resource tags: Select all that are relevant</p>
-        <button onClick={() => createTagsList("javascript")}>
+        <button onClick={() => handleAddToTagsArray("javascript")}>
           {" "}
           Javascript{" "}
         </button>
-        <button onClick={() => createTagsList("typescript")}>
+        <button onClick={() => handleAddToTagsArray("typescript")}>
           {" "}
           Typescript{" "}
         </button>
-        <button onClick={() => setTagsArray([...tagsArray, "React"])}>
-          {" "}
-          React{" "}
-        </button>
-        <button onClick={() => setTagsArray([...tagsArray, "HTML"])}>
-          {" "}
-          HTML{" "}
-        </button>
-        <button onClick={() => setTagsArray([...tagsArray, "SQL"])}>
-          {" "}
-          SQL{" "}
-        </button>
-        <button onClick={() => setTagsArray((prev) => [...prev, "front-end"])}>
+        <button onClick={() => handleAddToTagsArray("React")}> React </button>
+        <button onClick={() => handleAddToTagsArray("HTML")}> HTML </button>
+        <button onClick={() => handleAddToTagsArray("SQL")}> SQL </button>
+        <button onClick={() => handleAddToTagsArray("front-end")}>
           {" "}
           Front End{" "}
         </button>
-        <button onClick={() => setTagsArray([...tagsArray, "back-end"])}>
+        <button onClick={() => handleAddToTagsArray("back-end")}>
           {" "}
           Back End{" "}
         </button>
