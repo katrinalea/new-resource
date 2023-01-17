@@ -1,52 +1,53 @@
 export interface IResource {
-  resourceid: number;
-  url: string;
-  author: string;
-  title: string;
-  description: string;
+  resource_id: number;
+  resource_url: string;
+  author_name: string;
+  resource_name: string;
+  resource_description: string;
   tags: string[];
-  type: string;
-  week: number;
-  timeStamp: string;
-  userid: number;
-  usedreview: string;
-  reason: string;
+  content_type: string;
+  selene_week: number;
+  time_of_post: string;
+  user_id: number;
+  usage_status: string;
+  recommendation_reason: string;
 }
 
 export interface ISubmitResource {
-  url: string;
-  author: string;
-  title: string;
-  description: string;
+  resource_url: string;
+  author_name: string;
+  resource_name: string;
+  resource_description: string;
   tags: string[];
-  type: string;
-  week: number;
-  usedreview: string;
-  reason: string;
-  userid: number;
+  content_type: string;
+  selene_week: number;
+  usage_status: string;
+  recommendation_reason: string;
+  user_id: number;
 }
 
 export interface ILike {
-  resourceid: number;
-  userid: number;
-  liked: boolean;
+  resource_id: number;
+  user_id: number;
+  is_liked: boolean;
+  liked_id: number;
 }
 
 export interface IComment {
-  resourceid: number;
-  commmentid: number;
-  userid: number;
+  resource_id: number;
+  commment_id: number;
+  user_id: number;
   comment: string;
 }
 
 export interface IUser {
-  userid: number;
-  username: string;
-  status: string;
+  user_id: number;
+  user_name: string;
+  faculty_status: boolean;
 }
 
 export interface IToDo {
-  itemid: number;
-  userid: number;
-  resourceid: number;
+  to_do_item_id: number;
+  user_id: number;
+  resource_id: number;
 }

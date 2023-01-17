@@ -11,16 +11,16 @@ export default function NewResource(props: IProps): JSX.Element {
   console.log(tagsArray);
 
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
-    url: "",
-    author: "",
-    title: "",
-    description: "",
+    resource_url: "",
+    author_name: "",
+    resource_name: "",
+    resource_description: "",
     tags: tagsArray,
-    week: 0,
-    type: "",
-    usedreview: "",
-    reason: "",
-    userid: props.usernameid,
+    selene_week: 0,
+    content_type: "",
+    usage_status: "",
+    recommendation_reason: "",
+    user_id: props.usernameid,
   });
 
   function handleAddToTagsArray(tag: string) {
@@ -49,38 +49,38 @@ export default function NewResource(props: IProps): JSX.Element {
         <input
           type="text"
           placeholder=""
-          value={resourceSubmit.title}
+          value={resourceSubmit.resource_name}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, title: e.target.value })
+            setResourceSubmit({ ...resourceSubmit, resource_name: e.target.value })
           }
         />
         <p>Author Name:</p>
         <input
           type="text"
           placeholder=""
-          value={resourceSubmit.author}
+          value={resourceSubmit.author_name}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, author: e.target.value })
+            setResourceSubmit({ ...resourceSubmit, author_name: e.target.value })
           }
         />
         <p>Resource URL:</p>
         <input
           type="text"
           placeholder=""
-          value={resourceSubmit.url}
+          value={resourceSubmit.resource_url}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, url: e.target.value })
+            setResourceSubmit({ ...resourceSubmit, resource_url: e.target.value })
           }
         />
         <p>Resource description:</p>
         <input
           type="text"
           placeholder=""
-          value={resourceSubmit.description}
+          value={resourceSubmit.resource_description}
           onChange={(e) =>
             setResourceSubmit({
               ...resourceSubmit,
-              description: e.target.value,
+              resource_description: e.target.value,
             })
           }
         />
@@ -89,7 +89,7 @@ export default function NewResource(props: IProps): JSX.Element {
           onChange={(e) =>
             setResourceSubmit({
               ...resourceSubmit,
-              week: parseInt(e.target.value),
+              selene_week: parseInt(e.target.value),
             })
           }
         >
@@ -103,7 +103,7 @@ export default function NewResource(props: IProps): JSX.Element {
         <p> Type of resource: </p>
         <select
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, type: e.target.value })
+            setResourceSubmit({ ...resourceSubmit, content_type: e.target.value })
           }
         >
           <option value="read">Read only</option>
@@ -135,7 +135,7 @@ export default function NewResource(props: IProps): JSX.Element {
         <p>Have you used this?</p>
         <select
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, usedreview: e.target.value })
+            setResourceSubmit({ ...resourceSubmit, usage_status: e.target.value })
           }
         >
           <option value="used">Used this resource and loved it!</option>
@@ -150,9 +150,9 @@ export default function NewResource(props: IProps): JSX.Element {
         <input
           type="text"
           placeholder=""
-          value={resourceSubmit.reason}
+          value={resourceSubmit.recommendation_reason}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, reason: e.target.value })
+            setResourceSubmit({ ...resourceSubmit, recommendation_reason: e.target.value })
           }
         />
       </form>

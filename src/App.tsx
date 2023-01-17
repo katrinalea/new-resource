@@ -6,15 +6,15 @@ import { IUser } from "./interfaces";
 
 function App(): JSX.Element {
   const [user, setUser] = useState<IUser>({
-    userid: 1,
-    username: "katrina",
-    status: "student",
+    user_id: 1,
+    user_name: "katrina",
+    faculty_status: false
   });
 
   return (
     <div>
       <HomePage />
-      <NewResource usernameid={user.userid} />
+      <NewResource usernameid={user.user_id} />
       <ToDoList />
     </div>
   );
