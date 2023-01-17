@@ -45,6 +45,17 @@ export default function NewResource(props: IProps): JSX.Element {
     "HTML",
     "SQL",
   ];
+
+  const seleneWeeks = [
+    "1: Workflows",
+    "2: TypeScript and Code Quality",
+    "3: React, HTML and CSS",
+    "4: React and Event Handlers",
+    "5: React and useEffect",
+    "7: Node.js and Express",
+    "8: SQL and persistence",
+  ];
+
   return (
     <div>
       <p>Create a new resource</p>
@@ -110,12 +121,11 @@ export default function NewResource(props: IProps): JSX.Element {
             })
           }
         >
-          <option value={1}>Week 1</option>
-          <option value={2}>Week 2</option>
-          <option value={3}>Week 3</option>
-          <option value={4}>Week 4</option>
-          <option value={5}>Week 5</option>
-          <option value={6}>Week 6</option>
+          {seleneWeeks.map((week, i) => (
+            <option value={week} key={i}>
+              {week}
+            </option>
+          ))}
         </select>
         <p> Type of resource: </p>
         <select
