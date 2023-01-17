@@ -11,11 +11,7 @@ export const url =
     : "http://localhost:4000";
 
 function App(): JSX.Element {
-  const [user, setUser] = useState<IUser>({
-    user_id: 1,
-    user_name: "katrina",
-    faculty_status: false,
-  });
+  const [userID, setUserID] = useState<number | null>(null);
 
   return (
     <div>
