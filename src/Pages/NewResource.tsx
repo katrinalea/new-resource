@@ -37,6 +37,8 @@ export default function NewResource(props: IProps): JSX.Element {
     // post request to db
   }
 
+
+  const technologies = ["React", "Typescript", "Javascript", "Front-end", "Back-end", "CSS", "HTML", "SQL"]
   return (
     <div>
       <p>Create a new resource</p>
@@ -112,26 +114,9 @@ export default function NewResource(props: IProps): JSX.Element {
         </select>
 
         <p>Resource tags: Select all that are relevant</p>
-        <button onClick={() => handleAddToTagsArray("javascript")}>
-          {" "}
-          Javascript{" "}
-        </button>
-        <button onClick={() => handleAddToTagsArray("typescript")}>
-          {" "}
-          Typescript{" "}
-        </button>
-        <button onClick={() => handleAddToTagsArray("React")}> React </button>
-        <button onClick={() => handleAddToTagsArray("HTML")}> HTML </button>
-        <button onClick={() => handleAddToTagsArray("SQL")}> SQL </button>
-        <button onClick={() => handleAddToTagsArray("front-end")}>
-          {" "}
-          Front End{" "}
-        </button>
-        <button onClick={() => handleAddToTagsArray("back-end")}>
-          {" "}
-          Back End{" "}
-        </button>
-
+        {technologies.map(tech =>
+          <button key = {tech} onClick={() => handleAddToTagsArray(tech)}>
+         {tech}</button>)}
         <p>Have you used this?</p>
         <select
           onChange={(e) =>
