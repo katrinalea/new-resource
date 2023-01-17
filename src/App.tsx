@@ -1,6 +1,6 @@
-import HomePage from "./pages/home";
-import NewResource from "./pages/newResource";
-import ToDoList from "./pages/toDoList";
+import HomePage from "./Pages/Home";
+import NewResource from "./Pages/NewResource";
+import ToDoList from "./Pages/ToDoList";
 import { useState } from "react";
 import { IUser } from "./interfaces";
 
