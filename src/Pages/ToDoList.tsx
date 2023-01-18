@@ -2,11 +2,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { url } from "../App";
-import {IToDo} from "../interfaces"
+import { IToDo } from "../interfaces";
 
 export default function ToDoList(): JSX.Element {
   const { userID } = useParams();
-  const [toDos, setToDos] = useState<IToDo[]>([])
+  const [toDos, setToDos] = useState<IToDo[]>([]);
   useEffect(() => {
     const endpoint = url + "/to-do-list";
 
