@@ -16,7 +16,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
     resource_name: "",
     resource_description: "",
     tags: tagsArray,
-    selene_week: 0,
+    selene_week: "",
     content_type: "",
     usage_status: "",
     recommendation_reason: "",
@@ -117,7 +117,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
           onChange={(e) =>
             setResourceSubmit({
               ...resourceSubmit,
-              selene_week: parseInt(e.target.value),
+              selene_week: e.target.value,
             })
           }
         >

@@ -6,7 +6,7 @@ export interface IResource {
   resource_description: string;
   tags: string[];
   content_type: string;
-  selene_week: number;
+  selene_week: string;
   time_of_post: string;
   user_id: number;
   usage_status: string;
@@ -20,7 +20,7 @@ export interface ISubmitResource {
   resource_description: string;
   tags: string[];
   content_type: string;
-  selene_week: number;
+  selene_week: string;
   usage_status: string;
   recommendation_reason: string;
   user_id: number | null;
