@@ -23,7 +23,7 @@ export interface ISubmitResource {
   selene_week: number;
   usage_status: string;
   recommendation_reason: string;
-  user_id: number;
+  user_id: number | null;
 }
 
 export interface ILike {
@@ -41,7 +41,7 @@ export interface IComment {
 }
 
 export interface IUser {
-  user_id: number;
+  user_id: number | null;
   user_name: string;
   faculty_status: boolean;
 }

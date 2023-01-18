@@ -1,14 +1,14 @@
-import { ISubmitResource } from "../interfaces";
+import { IResource, ISubmitResource } from "../interfaces";
 import { useState } from "react";
+import axios from "axios";
+import { url } from "../App";
 
-interface IProps {
-  usernameid: number;
+interface INewResourceProps {
+  userID: number | null;
 }
 
-export default function NewResource(props: IProps): JSX.Element {
+export default function NewResource(props: INewResourceProps): JSX.Element {
   const [tagsArray, setTagsArray] = useState<string[]>([]);
-
-  console.log(tagsArray);
 
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
     resource_url: "",
@@ -20,7 +20,7 @@ export default function NewResource(props: IProps): JSX.Element {
     content_type: "",
     usage_status: "",
     recommendation_reason: "",
-    user_id: props.usernameid,
+    user_id: props.userID,
   });
 
   function handleAddToTagsArray(tag: string) {
@@ -31,14 +31,31 @@ export default function NewResource(props: IProps): JSX.Element {
     }
   }
 
-  function handleSubmitResource() {
-    console.log("submitting");
-
-    // post request to db
+  async function handleSubmitResource(resource: ISubmitResource) {
+    await axios.post(`${url}/resources`, resource);
   }
 
+  const technologies = [
+    "React",
+    "Typescript",
+    "Javascript",
+    "Front-end",
+    "Back-end",
+    "CSS",
+    "HTML",
+    "SQL",
+  ];
 
-  const technologies = ["React", "Typescript", "Javascript", "Front-end", "Back-end", "CSS", "HTML", "SQL"]
+  const seleneWeeks = [
+    "1: Workflows",
+    "2: TypeScript and Code Quality",
+    "3: React, HTML and CSS",
+    "4: React and Event Handlers",
+    "5: React and useEffect",
+    "7: Node.js and Express",
+    "8: SQL and persistence",
+  ];
+
   return (
     <div>
       <p>Create a new resource</p>
@@ -53,7 +70,10 @@ export default function NewResource(props: IProps): JSX.Element {
           placeholder=""
           value={resourceSubmit.resource_name}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, resource_name: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              resource_name: e.target.value,
+            })
           }
         />
         <p>Author Name:</p>
@@ -62,7 +82,10 @@ export default function NewResource(props: IProps): JSX.Element {
           placeholder=""
           value={resourceSubmit.author_name}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, author_name: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              author_name: e.target.value,
+            })
           }
         />
         <p>Resource URL:</p>
@@ -71,7 +94,10 @@ export default function NewResource(props: IProps): JSX.Element {
           placeholder=""
           value={resourceSubmit.resource_url}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, resource_url: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              resource_url: e.target.value,
+            })
           }
         />
         <p>Resource description:</p>
@@ -95,17 +121,19 @@ export default function NewResource(props: IProps): JSX.Element {
             })
           }
         >
-          <option value={1}>Week 1</option>
-          <option value={2}>Week 2</option>
-          <option value={3}>Week 3</option>
-          <option value={4}>Week 4</option>
-          <option value={5}>Week 5</option>
-          <option value={6}>Week 6</option>
+          {seleneWeeks.map((week, i) => (
+            <option value={week} key={i}>
+              {week}
+            </option>
+          ))}
         </select>
         <p> Type of resource: </p>
         <select
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, content_type: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              content_type: e.target.value,
+            })
           }
         >
           <option value="read">Read only</option>
@@ -114,13 +142,18 @@ export default function NewResource(props: IProps): JSX.Element {
         </select>
 
         <p>Resource tags: Select all that are relevant</p>
-        {technologies.map(tech =>
-          <button key = {tech} onClick={() => handleAddToTagsArray(tech)}>
-         {tech}</button>)}
+        {technologies.map((tech) => (
+          <button key={tech} onClick={() => handleAddToTagsArray(tech)}>
+            {tech}
+          </button>
+        ))}
         <p>Have you used this?</p>
         <select
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, usage_status: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              usage_status: e.target.value,
+            })
           }
         >
           <option value="used">Used this resource and loved it!</option>
@@ -137,7 +170,10 @@ export default function NewResource(props: IProps): JSX.Element {
           placeholder=""
           value={resourceSubmit.recommendation_reason}
           onChange={(e) =>
-            setResourceSubmit({ ...resourceSubmit, recommendation_reason: e.target.value })
+            setResourceSubmit({
+              ...resourceSubmit,
+              recommendation_reason: e.target.value,
+            })
           }
         />
       </form>
