@@ -26,7 +26,7 @@ function App(): JSX.Element {
           element={<HomePage userID={userID} setUserID={setUserID} />}
         />
         <Route path="/add-resource" element={<NewResource userID={userID} />} />
-        <Route path="/:userID/to-do-list" element={<ToDoList />} />
+        <Route path="/:userID/to-do-list" element={<ToDoList resources = {} users = {}/>} />
       </Routes>
     </div>
   );

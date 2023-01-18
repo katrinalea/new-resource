@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { url } from "../App";
 import { IUser } from "../interfaces";
 import { IResource } from "../interfaces";
+import { Resource } from "./Resource";
 interface IHomePageProps {
   userID: number | null;
   setUserID: React.Dispatch<React.SetStateAction<number | null>>;
@@ -45,7 +46,10 @@ export default function HomePage({
           </option>
         ))}
       </select>
-      <div></div>
+      <div>
+        {allResources.map(resource =>
+          <Resource key = {resource.resource_id} oneResource={resource} users = {users}/>)}
+      </div>
     </div>
   );
 }
