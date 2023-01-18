@@ -1,13 +1,13 @@
-import { IResource } from "../interfaces"
+import { IResource, IUser } from "../interfaces"
 
 interface ResourceProps{
-    oneResource: IResource
+    oneResource: IResource, 
+    users: IUser[]
 }
 
 
-export function Resource({oneResource}: ResourceProps): JSX.Element{
-    
-    
+export function Resource({oneResource, users}: ResourceProps): JSX.Element{
+    const filteredUser = users.filter(user => user.user_id === oneResource.user_id)
     return  (
 <>
 <h1>{oneResource.resource_name}</h1>
@@ -15,7 +15,7 @@ export function Resource({oneResource}: ResourceProps): JSX.Element{
 <p>{oneResource.resource_description}</p>
 <p>{oneResource.recommendation_reason}</p>
 <a href= {oneResource.resource_url}>{oneResource.resource_url}</a>
-{/* <p>{oneResource.</p> HOW TO GET THE USER NAME*/} 
+<p>{filteredUser[0].user_name}</p> 
 <small>{oneResource.time_of_post}</small>
 <p>{oneResource.selene_week}</p>
 <p>{oneResource.content_type}</p>
