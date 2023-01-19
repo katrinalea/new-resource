@@ -38,7 +38,7 @@ function App(): JSX.Element {
       <div className="navbar">
         <NavLink to="/">Homepage</NavLink>
         <NavLink to="/add-resource">Add Resource</NavLink>
-        {userID && <NavLink to={`/${userID}/to-do-list`}>To-Do List</NavLink>}
+        {userID && <NavLink to={`/to-do-list/${userID}`}>To-Do List</NavLink>}
       </div>
       <Routes>
         <Route
@@ -54,7 +54,7 @@ function App(): JSX.Element {
         />
         <Route path="/add-resource" element={<NewResource userID={userID} />} />
         <Route
-          path="/:userID/to-do-list"
+          path="/to-do-list/:userID"
           element={<ToDoList resources={allResources} users={users} />}
         />
       </Routes>
