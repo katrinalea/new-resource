@@ -49,6 +49,18 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
   console.table(resourceSubmit.tags);
   console.table(tagsArray);
 
+  async function handleSubmitResource(resource: ISubmitResource) {
+    if (
+      !resourceSubmit.resource_url ||
+      !resourceSubmit.resource_name ||
+      !resourceSubmit.resource_description
+    ) {
+      window.alert("missing fields");
+    } else {
+      await axios.post(`${url}/resources`, resource);
+    }
+  }
+
   function handleAddToTagsArray(tag: string) {
     if (!tagsArray.includes(tag)) {
       tagsArray.push(tag);
