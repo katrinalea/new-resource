@@ -24,6 +24,7 @@ export default function ToDoList({
  
 
   console.table(usersToDoList);
+  console.log("rerendering")
 
   useEffect(() => {
     const endpoint = url + `/to-do-list/${userID}/`;
