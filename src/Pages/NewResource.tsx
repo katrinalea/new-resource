@@ -91,7 +91,15 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
           e.preventDefault();
         }}
       >
-        <p>Resource Title:</p>
+        <p
+          className={
+            resourceSubmit.resource_name === "" && attemptedSubmit
+              ? "resource-title-missing"
+              : "resource-title"
+          }
+        >
+          Resource Title:
+        </p>
         <input
           type="text"
           placeholder=""
@@ -115,7 +123,15 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         />
-        <p>Resource URL:</p>
+        <p
+          className={
+            resourceSubmit.resource_name === "" && attemptedSubmit
+              ? "url-missing"
+              : "url"
+          }
+        >
+          Resource URL:
+        </p>
         <input
           type="text"
           placeholder=""
@@ -127,7 +143,15 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         />
-        <p>Resource description:</p>
+        <p
+          className={
+            resourceSubmit.resource_name === "" && attemptedSubmit
+              ? "description-missing"
+              : "description"
+          }
+        >
+          Resource description:
+        </p>
         <input
           type="text"
           placeholder=""
