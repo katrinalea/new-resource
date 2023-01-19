@@ -79,10 +79,6 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
     });
   }
 
-  async function handleSubmitResource(resource: ISubmitResource) {
-    await axios.post(`${url}/resources`, resource);
-  }
-
   return (
     <div>
       <p>Create a new resource</p>
@@ -172,6 +168,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         >
+          <option selected={true} disabled>
+            select an option
+          </option>
           {seleneWeeks.map((week, i) => (
             <option value={week} key={i}>
               {week}
@@ -187,6 +186,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         >
+          <option selected={true} disabled>
+            select an option
+          </option>
           <option value="read">Read only</option>
           <option value="interactive"> Interactive</option>
           <option value="tutorial">Tutorial</option>
@@ -207,6 +209,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         >
+          <option selected={true} disabled>
+            select an option
+          </option>
           <option value="used">Used this resource and loved it!</option>
           <option value="used2">
             Used this resource, some parts are useful
