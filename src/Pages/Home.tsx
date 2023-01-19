@@ -2,6 +2,7 @@ import axios from "axios";
 import { resourceUsage } from "process";
 import { useEffect, useState } from "react";
 import { url } from "../App";
+import ResourcePreview from "../components/resourcePreview";
 import { IUser } from "../interfaces";
 import { IResource } from "../interfaces";
 import { Resource } from "./Resource";
@@ -33,10 +34,10 @@ export default function HomePage({
       </select>
       <div>
         {resources.map((resource) => (
-          <Resource
+          <ResourcePreview
             key={resource.resource_id}
-            oneResource={resource}
-            users={users}
+            resource={resource}
+            userID={userID}
           />
         ))}
       </div>
