@@ -16,12 +16,11 @@ export default function HomePage({
   resources,
   users,
 }: IHomePageProps): JSX.Element {
+  const [searchText, setSearchText] = useState<string>("");
 
-const [searchText, setSearchText] = useState<string>('');
+  const filteredResources = filterResources(searchText, resources);
 
-const filteredResources = filterResources(searchText, resources); 
-
-return (
+  return (
     <div>
       <p>Home</p>
       <select onChange={(e) => setUserID(Number(e.target.value))}>
@@ -35,11 +34,16 @@ return (
         ))}
       </select>
       <div>
-        <SearchBar searchText={searchText} setSearchText={setSearchText}/>
+        <SearchBar searchText={searchText} setSearchText={setSearchText} />
       </div>
       <div>
-        {filteredResources.map(resource =>
-          <Resource key = {resource.resource_id} oneResource={resource} users = {users}/>)}
+        {filteredResources.map((resource) => (
+          <Resource
+            key={resource.resource_id}
+            oneResource={resource}
+            users={users}
+          />
+        ))}
       </div>
     </div>
   );
