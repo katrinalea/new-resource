@@ -229,7 +229,15 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
         />
       </form>
 
-      <button onClick={() => handleSubmitResource}> Submit resource</button>
+      <button
+        onClick={() => {
+          handleSubmitResource(resourceSubmit);
+          setAttemptedSubmit(true);
+        }}
+      >
+        {" "}
+        Submit resource
+      </button>
     </div>
   );
 }
