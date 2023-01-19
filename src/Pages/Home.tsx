@@ -10,37 +10,22 @@ import { Resource } from "./Resource";
 interface IHomePageProps {
   userID: number | null;
   setUserID: React.Dispatch<React.SetStateAction<number | null>>;
+  resources: IResource[];
+  users: IUser[];
 }
 
 export default function HomePage({
   userID,
   setUserID,
+  resources,
+  users,
 }: IHomePageProps): JSX.Element {
-  const [users, setUsers] = useState<IUser[]>([]);
-  //perhaps constantly have a hard version of original list to reset to
-  //how to prok re-renders???
-  const [allResources, setAllResources] = useState<IResource[]>([]);
-  const [searchText, setSearchText] = useState<string>('');
 
-  useEffect(() => {
-    const userNamesCompleteURL = url + "/users";
-    const resourcesURL = url + "/resources";
+const [searchText, setSearchText] = useState<string>('');
 
-    const fetchAllResources = async () => {
-      const { data } = await axios.get(resourcesURL);
-      setAllResources(data);
-    };
-    const fetchUserNames = async () => {
-      const { data } = await axios.get(userNamesCompleteURL);
-      setUsers(data);
-    };
-    fetchUserNames();
-    fetchAllResources();
-  }, []);
+const filteredResources = filterResources(searchText, resources); 
 
-  const filteredResources = filterResources(searchText, allResources);
-
-  return (
+return (
     <div>
       <p>Home</p>
       <select onChange={(e) => setUserID(Number(e.target.value))}>
