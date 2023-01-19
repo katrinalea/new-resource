@@ -41,6 +41,8 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
     user_id: props.userID,
   });
 
+  const [attemptedSubmit, setAttemptedSubmit] = useState<boolean>(false);
+
   const tagsArray: string[] = resourceSubmit.tags.filter((tag) => {
     return tag;
   });
