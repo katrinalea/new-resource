@@ -8,31 +8,16 @@ import { Resource } from "./Resource";
 interface IHomePageProps {
   userID: number | null;
   setUserID: React.Dispatch<React.SetStateAction<number | null>>;
+  resources: IResource[];
+  users: IUser[];
 }
 
 export default function HomePage({
   userID,
   setUserID,
+  resources,
+  users,
 }: IHomePageProps): JSX.Element {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [allResources, setAllResources] = useState<IResource[]>([]);
-
-  useEffect(() => {
-    const userNamesCompleteURL = url + "/users";
-    const resourcesURL = url + "/resources";
-
-    const fetchAllResources = async () => {
-      const { data } = await axios.get(resourcesURL);
-      setAllResources(data);
-    };
-    const fetchUserNames = async () => {
-      const { data } = await axios.get(userNamesCompleteURL);
-      setUsers(data);
-    };
-    fetchUserNames();
-    fetchAllResources();
-  }, []);
-
   return (
     <div>
       <p>Home</p>
@@ -47,8 +32,13 @@ export default function HomePage({
         ))}
       </select>
       <div>
-        {allResources.map(resource =>
-          <Resource key = {resource.resource_id} oneResource={resource} users = {users}/>)}
+        {resources.map((resource) => (
+          <Resource
+            key={resource.resource_id}
+            oneResource={resource}
+            users={users}
+          />
+        ))}
       </div>
     </div>
   );
