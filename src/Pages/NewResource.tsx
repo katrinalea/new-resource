@@ -8,14 +8,12 @@ interface INewResourceProps {
 }
 
 export default function NewResource(props: INewResourceProps): JSX.Element {
-  const [tagsArray, setTagsArray] = useState<string[]>([]);
-
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
     resource_url: "",
     author_name: "",
     resource_name: "",
     resource_description: "",
-    tags: tagsArray,
+    tags: [],
     selene_week: "",
     content_type: "",
     usage_status: "",
@@ -23,12 +21,28 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
     user_id: props.userID,
   });
 
+  const tagsArray: string[] = resourceSubmit.tags.filter((tag) => {
+    return tag;
+  });
+  console.table(resourceSubmit.tags);
+  console.table(tagsArray);
+
   function handleAddToTagsArray(tag: string) {
     if (!tagsArray.includes(tag)) {
-      setTagsArray([...tagsArray, tag]);
+      tagsArray.push(tag);
     } else {
-      setTagsArray(tagsArray.filter((item) => item !== tag));
+      delete tagsArray[
+        tagsArray.findIndex((ele) => {
+          return ele === tag;
+        })
+      ];
     }
+    setResourceSubmit({
+      ...resourceSubmit,
+      tags: tagsArray.filter((tag) => {
+        return tag;
+      }),
+    });
   }
 
   async function handleSubmitResource(resource: ISubmitResource) {
