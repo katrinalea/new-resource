@@ -2,8 +2,10 @@ import axios from "axios";
 import { resourceUsage } from "process";
 import { useEffect, useState } from "react";
 import { url } from "../App";
+import SearchBar from "../components/SearchBar";
 import { IUser } from "../interfaces";
 import { IResource } from "../interfaces";
+import { filterResources } from "../utils/searchFilter";
 import { Resource } from "./Resource";
 interface IHomePageProps {
   userID: number | null;
@@ -15,7 +17,10 @@ export default function HomePage({
   setUserID,
 }: IHomePageProps): JSX.Element {
   const [users, setUsers] = useState<IUser[]>([]);
+  //perhaps constantly have a hard version of original list to reset to
+  //how to prok re-renders???
   const [allResources, setAllResources] = useState<IResource[]>([]);
+  const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
     const userNamesCompleteURL = url + "/users";
@@ -33,6 +38,8 @@ export default function HomePage({
     fetchAllResources();
   }, []);
 
+  const filteredResources = filterResources(searchText, allResources);
+
   return (
     <div>
       <p>Home</p>
@@ -47,7 +54,10 @@ export default function HomePage({
         ))}
       </select>
       <div>
-        {allResources.map(resource =>
+        <SearchBar searchText={searchText} setSearchText={setSearchText}/>
+      </div>
+      <div>
+        {filteredResources.map(resource =>
           <Resource key = {resource.resource_id} oneResource={resource} users = {users}/>)}
       </div>
     </div>

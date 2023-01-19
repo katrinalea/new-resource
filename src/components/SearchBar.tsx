@@ -2,32 +2,18 @@ import { useState } from "react";
 import { IResource } from "../interfaces";
 
 interface SearchBarProps{
-  resources: IResource[];
+  // resources: IResource[];
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>
 }
-
+//--------------------------------------------------------------------------------
 export default function SearchBar(props:SearchBarProps): JSX.Element {
 
+// const resources = props.resources; 
+//const [searchText, setSearchText] = useState<string>('') //move to Home.tsx
 
-const resources = props.resources; 
-const [searchText, setSearchText] = useState<string>('')
-
-const filterResources = (searchedText:string, resources:IResource[]) => {
-  if (!searchText){
-    return resources;
-  }
-  
-  const filteredList = resources.filter((resource) => 
-  {
-    
-    const allTags:string = resource.tags.join("#").toLowerCase(); //['react', 'javascript'] => #react#javascript so I can't searchactja
-
-    resource.author_name.toLowerCase().includes(searchText.toLowerCase()) ||
-    resource.resource_description.toLowerCase().includes(searchText.toLowerCase()) ||
-    resource.resource_name.toLowerCase().includes(searchText.toLowerCase()) ||
-    allTags.includes(searchText.toLowerCase()) // or could do ||resource.tags.includes(searchText.toLowerCase()) 
-  })
-  return [];
-}
+const searchText=props.searchText;
+const setSearchText=props.setSearchText;
 
   return (
     <input placeholder="Search for a resource." 
