@@ -1,7 +1,4 @@
-import axios from "axios";
-import { resourceUsage } from "process";
-import { useEffect, useState } from "react";
-import { url } from "../App";
+import { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import { IUser } from "../interfaces";
 import { IResource } from "../interfaces";
@@ -15,7 +12,6 @@ interface IHomePageProps {
 }
 
 export default function HomePage({
-  userID,
   setUserID,
   resources,
   users,

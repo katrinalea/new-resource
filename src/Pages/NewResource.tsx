@@ -1,4 +1,4 @@
-import { IResource, ISubmitResource } from "../interfaces";
+import { ISubmitResource } from "../interfaces";
 import { useState } from "react";
 import axios from "axios";
 import { url } from "../App";
