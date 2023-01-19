@@ -16,17 +16,16 @@ const filterResources = (searchedText:string, resources:IResource[]) => {
     return resources;
   }
   
-  
-
   const filteredList = resources.filter((resource) => 
   {
     
-    const allTags:string = resource.tags.join("#") //['react', 'javascript'] => #react#javascript so I can't searchactja
+    const allTags:string = resource.tags.join("#").toLowerCase(); //['react', 'javascript'] => #react#javascript so I can't searchactja
 
     resource.author_name.toLowerCase().includes(searchText.toLowerCase()) ||
     resource.resource_description.toLowerCase().includes(searchText.toLowerCase()) ||
     resource.resource_name.toLowerCase().includes(searchText.toLowerCase()) ||
-    allTags.includes(searchText.toLowerCase())});
+    allTags.includes(searchText.toLowerCase()) // or could do ||resource.tags.includes(searchText.toLowerCase()) 
+  })
   return [];
 }
 
