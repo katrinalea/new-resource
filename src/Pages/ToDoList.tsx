@@ -5,35 +5,42 @@ import { url } from "../App";
 import { IResource, IToDo, IUser } from "../interfaces";
 import { Resource } from "./Resource";
 
-
-interface ToDoListResources{
+interface ToDoListResources {
   resources: IResource[];
-  users: IUser[]
+  users: IUser[];
 }
-export default function ToDoList({resources, users}:ToDoListResources): JSX.Element {
+export default function ToDoList({
+  resources,
+  users,
+}: ToDoListResources): JSX.Element {
   const { userID } = useParams();
   const [toDos, setToDos] = useState<IToDo[]>([]);
 
-  const resourcesInfo = resources.filter((resource) => toDos.map(x => x.resource_id).includes(resource.resource_id))
+  const usersToDoList = resources.filter((resource) =>
+    toDos.map((x) => x.resource_id).includes(resource.resource_id)
+  );
+  console.table(usersToDoList);
 
   useEffect(() => {
-    const endpoint = url + `to-do-list/${userID}/`;
+    const endpoint = url + `/to-do-list/${userID}/`;
 
     const fetchTodoListItems = async () => {
       const { data } = await axios.get(endpoint);
       setToDos(data);
     };
     fetchTodoListItems();
-  }, []);
+  }, [userID]);
   return (
     <div>
       <p>{userID}</p>
       {/* need to get the id of the resource from the resources fetched in home ?? */}
-      {resourcesInfo.map(oneToDo => 
-  <Resource oneResource={oneToDo} users = {users} key={oneToDo.resource_id}/>
-
-
-      )}
+      {usersToDoList.map((oneToDo) => (
+        <Resource
+          oneResource={oneToDo}
+          users={users}
+          key={oneToDo.resource_id}
+        />
+      ))}
       {/* map over the todolist to chave the resource component but need to add the bin inside the div */}
     </div>
   );
