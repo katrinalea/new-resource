@@ -21,7 +21,7 @@ export function Resource({ oneResource, users }: ResourceProps): JSX.Element {
       <p>{oneResource.selene_week}</p>
       <p>{oneResource.content_type}</p>
       <p>{oneResource.usage_status}</p>
-      <p>{oneResource.tags}</p>
+      <p>{oneResource.tags.join("#")}</p>
     </>
   );
 }

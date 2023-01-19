@@ -14,21 +14,28 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   useEffect(() => {
     const fetchLikes = async () => {
       const completeURL =
-        url + `/${props.resource.resource_id}/likes/${props.userID}`;
+        url + `/resources/${props.resource.resource_id}/likes/${props.userID}`;
       const { data } = await axios.get(completeURL);
       setIsLiked(data);
     };
-    fetchLikes();
+    if (props.userID) {
+      fetchLikes();
+    }
   }, [props.resource.resource_id, props.userID, setIsLiked]);
 
   const handleLike = async (resourceid: number, userid: number) => {
     const likeURL = url + `/resources/${resourceid}/likes`;
     const updatedLikeStatus = isLiked ? null : true;
     console.log("handle like entered");
+    await axios.patch(likeURL, { like: updatedLikeStatus, userId: userid });
   };
 
   const handleDisike = async (resourceid: number, userid: number) => {
     const likeURL = url + `/resources/${resourceid}/likes`;
+    const updatedDisLikeStatus = isLiked === false ? null : false;
+    console.log("handle dislike entered");
+    console.log(updatedDisLikeStatus);
+    await axios.patch(likeURL, { like: updatedDisLikeStatus, userId: userid });
   };
 
   return (

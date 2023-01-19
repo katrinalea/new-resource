@@ -1,36 +1,24 @@
-import axios from "axios";
-import { resourceUsage } from "process";
-import { useEffect, useState } from "react";
-import { url } from "../App";
+import { useState } from "react";
+import SearchBar from "../components/SearchBar";
 import { IUser } from "../interfaces";
 import { IResource } from "../interfaces";
+import { filterResources } from "../utils/searchFilter";
+import { Resource } from "./Resource";
 interface IHomePageProps {
   userID: number | null;
   setUserID: React.Dispatch<React.SetStateAction<number | null>>;
+  resources: IResource[];
+  users: IUser[];
 }
 
 export default function HomePage({
-  userID,
   setUserID,
+  resources,
+  users,
 }: IHomePageProps): JSX.Element {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [allResources, setAllResources] = useState<IResource[]>([]);
+  const [searchText, setSearchText] = useState<string>("");
 
-  useEffect(() => {
-    const userNamesCompleteURL = url + "/users";
-    const resourcesURL = url + "/resources";
-
-    const fetchAllResources = async () => {
-      const { data } = await axios.get(resourcesURL);
-      setAllResources(data);
-    };
-    const fetchUserNames = async () => {
-      const { data } = await axios.get(userNamesCompleteURL);
-      setUsers(data);
-    };
-    fetchUserNames();
-    fetchAllResources();
-  }, []);
+  const filteredResources = filterResources(searchText, resources);
 
   return (
     <div>
@@ -45,7 +33,18 @@ export default function HomePage({
           </option>
         ))}
       </select>
-      <div></div>
+      <div>
+        <SearchBar searchText={searchText} setSearchText={setSearchText} />
+      </div>
+      <div>
+        {filteredResources.map((resource) => (
+          <Resource
+            key={resource.resource_id}
+            oneResource={resource}
+            users={users}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import HomePage from "./Pages/Home";
 import NewResource from "./Pages/NewResource";
 import ToDoList from "./Pages/ToDoList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IUser } from "./interfaces";
 import { Routes, Route, NavLink } from "react-router-dom";
+import { IResource } from "./interfaces";
+import axios from "axios";
 
 export const url =
   process.env.NODE_ENV === "production"
@@ -12,21 +14,49 @@ export const url =
 
 function App(): JSX.Element {
   const [userID, setUserID] = useState<number | null>(null);
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [allResources, setAllResources] = useState<IResource[]>([]);
+
+  useEffect(() => {
+    const userNamesCompleteURL = url + "/users";
+    const resourcesURL = url + "/resources";
+
+    const fetchAllResources = async () => {
+      const { data } = await axios.get(resourcesURL);
+      setAllResources(data);
+    };
+    const fetchUserNames = async () => {
+      const { data } = await axios.get(userNamesCompleteURL);
+      setUsers(data);
+    };
+    fetchUserNames();
+    fetchAllResources();
+  }, []);
 
   return (
     <div>
       <div className="navbar">
         <NavLink to="/">Homepage</NavLink>
         <NavLink to="/add-resource">Add Resource</NavLink>
-        {userID && <NavLink to={`/${userID}/to-do-list`}>To-Do List</NavLink>}
+        {userID && <NavLink to={`/to-do-list/${userID}`}>To-Do List</NavLink>}
       </div>
       <Routes>
         <Route
           path="/"
-          element={<HomePage userID={userID} setUserID={setUserID} />}
+          element={
+            <HomePage
+              resources={allResources}
+              users={users}
+              userID={userID}
+              setUserID={setUserID}
+            />
+          }
         />
         <Route path="/add-resource" element={<NewResource userID={userID} />} />
-        <Route path="/:userID/to-do-list" element={<ToDoList />} />
+        <Route
+          path="/to-do-list/:userID"
+          element={<ToDoList resources={allResources} users={users} />}
+        />
       </Routes>
     </div>
   );
