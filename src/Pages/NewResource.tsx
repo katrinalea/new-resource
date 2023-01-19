@@ -6,6 +6,26 @@ import { url } from "../App";
 interface INewResourceProps {
   userID: number | null;
 }
+export const technologies = [
+  "React",
+  "Typescript",
+  "Javascript",
+  "Front-end",
+  "Back-end",
+  "CSS",
+  "HTML",
+  "SQL",
+];
+
+export const seleneWeeks = [
+  "1: Workflows",
+  "2: TypeScript and Code Quality",
+  "3: React, HTML and CSS",
+  "4: React and Event Handlers",
+  "5: React and useEffect",
+  "7: Node.js and Express",
+  "8: SQL and persistence",
+];
 
 export default function NewResource(props: INewResourceProps): JSX.Element {
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
@@ -48,27 +68,6 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
   async function handleSubmitResource(resource: ISubmitResource) {
     await axios.post(`${url}/resources`, resource);
   }
-
-  const technologies = [
-    "React",
-    "Typescript",
-    "Javascript",
-    "Front-end",
-    "Back-end",
-    "CSS",
-    "HTML",
-    "SQL",
-  ];
-
-  const seleneWeeks = [
-    "1: Workflows",
-    "2: TypeScript and Code Quality",
-    "3: React, HTML and CSS",
-    "4: React and Event Handlers",
-    "5: React and useEffect",
-    "7: Node.js and Express",
-    "8: SQL and persistence",
-  ];
 
   return (
     <div>
