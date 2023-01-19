@@ -16,9 +16,13 @@ export default function ToDoList({
   const { userID } = useParams();
   const [toDos, setToDos] = useState<IToDo[]>([]);
 
+  const idsArray = toDos.map((x) => x.resource_id); // parse array of to do objects into array of resource ids
   const usersToDoList = resources.filter((resource) =>
-    toDos.map((x) => x.resource_id).includes(resource.resource_id)
-  );
+    idsArray.includes(resource.resource_id)
+  ); // filters array of resource objects to only those resources included in ids.array
+
+ 
+
   console.table(usersToDoList);
 
   useEffect(() => {
