@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ResourcePreview from "../components/resourcePreview";
 import SearchBar from "../components/SearchBar";
+import TagFilter from "../components/TagFilter";
 import { IUser } from "../interfaces";
 import { IResource } from "../interfaces";
 import { filterResources } from "../utils/searchFilter";
@@ -18,9 +19,24 @@ export default function HomePage({
   users,
   userID,
 }: IHomePageProps): JSX.Element {
+  
   const [searchText, setSearchText] = useState<string>("");
-
   const filteredResources = filterResources(searchText, resources);
+  const [finalFilteredResources, setFinalFilteredResources] = useState<IResource[]>(filteredResources)
+
+  const handleFilterTag = (clickedTag: string)=>{
+       setFinalFilteredResources(filteredResources)
+    const tagFilteredResources = filteredResources.filter(resource => 
+        {
+          const allResourceTags: string = resource.tags.join("#").toLowerCase(); 
+          console.log("clicked", clickedTag)
+          return allResourceTags.includes(clickedTag.toLowerCase())
+        }
+      )
+      setFinalFilteredResources(tagFilteredResources)
+    }
+
+
 
   return (
     <div>
@@ -37,9 +53,10 @@ export default function HomePage({
       </select>
       <div>
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
+        <TagFilter handleFilterTag={handleFilterTag}/>
       </div>
       <div>
-        {filteredResources.map((resource) => (
+        {finalFilteredResources.map((resource) => (
           <ResourcePreview
             key={resource.resource_id}
             resource={resource}
