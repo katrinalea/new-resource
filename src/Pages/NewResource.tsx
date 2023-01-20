@@ -1,4 +1,4 @@
-import { IResource, ISubmitResource } from "../interfaces";
+import { ISubmitResource } from "../interfaces";
 import { useState } from "react";
 import axios from "axios";
 import { url } from "../App";
@@ -6,16 +6,34 @@ import { url } from "../App";
 interface INewResourceProps {
   userID: number | null;
 }
+export const technologies = [
+  "React",
+  "Typescript",
+  "Javascript",
+  "Front-end",
+  "Back-end",
+  "CSS",
+  "HTML",
+  "SQL",
+];
+
+export const seleneWeeks = [
+  "1: Workflows",
+  "2: TypeScript and Code Quality",
+  "3: React, HTML and CSS",
+  "4: React and Event Handlers",
+  "5: React and useEffect",
+  "7: Node.js and Express",
+  "8: SQL and persistence",
+];
 
 export default function NewResource(props: INewResourceProps): JSX.Element {
-  const [tagsArray, setTagsArray] = useState<string[]>([]);
-
   const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
     resource_url: "",
     author_name: "",
     resource_name: "",
     resource_description: "",
-    tags: tagsArray,
+    tags: [],
     selene_week: "",
     content_type: "",
     usage_status: "",
@@ -23,38 +41,43 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
     user_id: props.userID,
   });
 
-  function handleAddToTagsArray(tag: string) {
-    if (!tagsArray.includes(tag)) {
-      setTagsArray([...tagsArray, tag]);
+  const [attemptedSubmit, setAttemptedSubmit] = useState<boolean>(false);
+
+  const tagsArray: string[] = resourceSubmit.tags.filter((tag) => {
+    return tag;
+  });
+  console.table(resourceSubmit.tags);
+  console.table(tagsArray);
+
+  async function handleSubmitResource(resource: ISubmitResource) {
+    if (
+      !resourceSubmit.resource_url ||
+      !resourceSubmit.resource_name ||
+      !resourceSubmit.resource_description
+    ) {
+      window.alert("missing fields");
     } else {
-      setTagsArray(tagsArray.filter((item) => item !== tag));
+      await axios.post(`${url}/resources`, resource);
     }
   }
 
-  async function handleSubmitResource(resource: ISubmitResource) {
-    await axios.post(`${url}/resources`, resource);
+  function handleAddToTagsArray(tag: string) {
+    if (!tagsArray.includes(tag)) {
+      tagsArray.push(tag);
+    } else {
+      delete tagsArray[
+        tagsArray.findIndex((ele) => {
+          return ele === tag;
+        })
+      ];
+    }
+    setResourceSubmit({
+      ...resourceSubmit,
+      tags: tagsArray.filter((tag) => {
+        return tag;
+      }),
+    });
   }
-
-  const technologies = [
-    "React",
-    "Typescript",
-    "Javascript",
-    "Front-end",
-    "Back-end",
-    "CSS",
-    "HTML",
-    "SQL",
-  ];
-
-  const seleneWeeks = [
-    "1: Workflows",
-    "2: TypeScript and Code Quality",
-    "3: React, HTML and CSS",
-    "4: React and Event Handlers",
-    "5: React and useEffect",
-    "7: Node.js and Express",
-    "8: SQL and persistence",
-  ];
 
   return (
     <div>
@@ -64,7 +87,15 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
           e.preventDefault();
         }}
       >
-        <p>Resource Title:</p>
+        <p
+          className={
+            resourceSubmit.resource_name === "" && attemptedSubmit
+              ? "resource-title-missing"
+              : "resource-title"
+          }
+        >
+          Resource Title:
+        </p>
         <input
           type="text"
           placeholder=""
@@ -88,7 +119,15 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         />
-        <p>Resource URL:</p>
+        <p
+          className={
+            resourceSubmit.resource_name === "" && attemptedSubmit
+              ? "url-missing"
+              : "url"
+          }
+        >
+          Resource URL:
+        </p>
         <input
           type="text"
           placeholder=""
@@ -100,7 +139,15 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         />
-        <p>Resource description:</p>
+        <p
+          className={
+            resourceSubmit.resource_name === "" && attemptedSubmit
+              ? "description-missing"
+              : "description"
+          }
+        >
+          Resource description:
+        </p>
         <input
           type="text"
           placeholder=""
@@ -121,6 +168,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         >
+          <option selected={true} disabled>
+            select an option
+          </option>
           {seleneWeeks.map((week, i) => (
             <option value={week} key={i}>
               {week}
@@ -136,6 +186,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         >
+          <option selected={true} disabled>
+            select an option
+          </option>
           <option value="read">Read only</option>
           <option value="interactive"> Interactive</option>
           <option value="tutorial">Tutorial</option>
@@ -156,6 +209,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         >
+          <option selected={true} disabled>
+            select an option
+          </option>
           <option value="used">Used this resource and loved it!</option>
           <option value="used2">
             Used this resource, some parts are useful
@@ -178,7 +234,15 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
         />
       </form>
 
-      <button onClick={() => handleSubmitResource}> Submit resource</button>
+      <button
+        onClick={() => {
+          handleSubmitResource(resourceSubmit);
+          setAttemptedSubmit(true);
+        }}
+      >
+        {" "}
+        Submit resource
+      </button>
     </div>
   );
 }

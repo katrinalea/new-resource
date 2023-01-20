@@ -1,7 +1,20 @@
-export default function SearchBar(): JSX.Element {
+interface SearchBarProps {
+  // resources: IResource[];
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+}
+//--------------------------------------------------------------------------------
+export default function SearchBar(props: SearchBarProps): JSX.Element {
+  const searchText = props.searchText;
+  const setSearchText = props.setSearchText;
+
   return (
-    <div>
-      <p>Search</p>
-    </div>
+    <input
+      placeholder="Search for a resource."
+      value={searchText}
+      onChange={(e) => {
+        setSearchText(e.target.value);
+      }}
+    />
   );
 }

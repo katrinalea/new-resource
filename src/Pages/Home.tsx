@@ -1,10 +1,15 @@
+
 import axios from "axios";
 import { resourceUsage } from "process";
 import { useEffect, useState } from "react";
 import { url } from "../App";
 import ResourcePreview from "../components/resourcePreview";
+
+import SearchBar from "../components/SearchBar";
+
 import { IUser } from "../interfaces";
 import { IResource } from "../interfaces";
+import { filterResources } from "../utils/searchFilter";
 import { Resource } from "./Resource";
 interface IHomePageProps {
   userID: number | null;
@@ -14,11 +19,16 @@ interface IHomePageProps {
 }
 
 export default function HomePage({
-  userID,
   setUserID,
   resources,
   users,
 }: IHomePageProps): JSX.Element {
+
+  const [searchText, setSearchText] = useState<string>("");
+
+  const filteredResources = filterResources(searchText, resources);
+
+
   return (
     <div>
       <p>Home</p>
@@ -33,11 +43,16 @@ export default function HomePage({
         ))}
       </select>
       <div>
-        {resources.map((resource) => (
-          <ResourcePreview
+
+        <SearchBar searchText={searchText} setSearchText={setSearchText} />
+      </div>
+      <div>
+        {filteredResources.map((resource) => (
+          <Resource
             key={resource.resource_id}
-            resource={resource}
-            userID={userID}
+            oneResource={resource}
+            users={users}
+
           />
         ))}
       </div>
