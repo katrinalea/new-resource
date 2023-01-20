@@ -3,6 +3,10 @@ import { url } from "../App";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineDislike } from "react-icons/ai";
 
 interface IResourcePreview {
   resource: IResource;
@@ -11,15 +15,19 @@ interface IResourcePreview {
 
 export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean | null>(null);
-
+  console.log("resourcePreview rerendered");
   useEffect(() => {
+    debugger;
+    console.log("useEffect called");
     const fetchLikes = async () => {
       const completeURL =
         url + `/resources/${props.resource.resource_id}/likes/${props.userID}`;
       const { data } = await axios.get(completeURL);
-      setIsLiked(data);
+      console.log("{data} type: " + typeof data);
+      console.log("data.is_liked: " + data.is_liked);
+      setIsLiked(data.is_liked);
     };
-    if (props.userID) {
+    if (props.userID !== null) {
       fetchLikes();
     }
   }, [props.resource.resource_id, props.userID, setIsLiked]);
@@ -30,7 +38,7 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
     console.log("handle like entered");
 
     console.log(updatedLikeStatus);
-    await axios.patch(likeURL, { like: updatedLikeStatus, userId: userid });
+    await axios.post(likeURL, { like: updatedLikeStatus, userId: userid });
     setIsLiked(updatedLikeStatus);
   };
 
@@ -39,7 +47,7 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
     const updatedDisLikeStatus = isLiked === false ? null : false;
     console.log("handle dislike entered");
     console.log(updatedDisLikeStatus);
-    await axios.patch(likeURL, { like: updatedDisLikeStatus, userId: userid });
+    await axios.post(likeURL, { like: updatedDisLikeStatus, userId: userid });
 
     setIsLiked(updatedDisLikeStatus);
   };
@@ -52,22 +60,55 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
       </Link>
       {props.userID && (
         <div>
-          <button
-            onClick={() =>
-              handleLike(props.resource.resource_id, props.resource.user_id)
-            }
-          >
-            {" "}
-            👍{" "}
-          </button>
-          <button
-            onClick={() =>
-              handleDisike(props.resource.resource_id, props.resource.user_id)
-            }
-          >
-            {" "}
-            👎{" "}
-          </button>
+          {isLiked === null ? (
+            <div>
+              <AiOutlineLike
+                onClick={() =>
+                  handleLike(props.resource.resource_id, props.resource.user_id)
+                }
+              />
+              <AiOutlineDislike
+                onClick={() =>
+                  handleDisike(
+                    props.resource.resource_id,
+                    props.resource.user_id
+                  )
+                }
+              />
+            </div>
+          ) : isLiked === false ? (
+            <>
+              <AiOutlineLike
+                onClick={() =>
+                  handleLike(props.resource.resource_id, props.resource.user_id)
+                }
+              />
+              <AiFillDislike
+                onClick={() =>
+                  handleDisike(
+                    props.resource.resource_id,
+                    props.resource.user_id
+                  )
+                }
+              />
+            </>
+          ) : (
+            <>
+              <AiFillLike
+                onClick={() =>
+                  handleLike(props.resource.resource_id, props.resource.user_id)
+                }
+              />
+              <AiOutlineDislike
+                onClick={() =>
+                  handleDisike(
+                    props.resource.resource_id,
+                    props.resource.user_id
+                  )
+                }
+              />
+            </>
+          )}
         </div>
       )}
     </div>
