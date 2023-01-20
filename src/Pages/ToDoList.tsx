@@ -21,10 +21,8 @@ export default function ToDoList({
     idsArray.includes(resource.resource_id)
   ); // filters array of resource objects to only those resources included in ids.array
 
- 
-
   console.table(usersToDoList);
-  console.log("rerendering")
+  console.log("rerendering");
 
   useEffect(() => {
     const endpoint = url + `/to-do-list/${userID}/`;
