@@ -1,5 +1,12 @@
-import { useState } from "react";
+
+import axios from "axios";
+import { resourceUsage } from "process";
+import { useEffect, useState } from "react";
+import { url } from "../App";
+import ResourcePreview from "../components/resourcePreview";
+
 import SearchBar from "../components/SearchBar";
+
 import { IUser } from "../interfaces";
 import { IResource } from "../interfaces";
 import { filterResources } from "../utils/searchFilter";
@@ -16,9 +23,11 @@ export default function HomePage({
   resources,
   users,
 }: IHomePageProps): JSX.Element {
+
   const [searchText, setSearchText] = useState<string>("");
 
   const filteredResources = filterResources(searchText, resources);
+
 
   return (
     <div>
@@ -34,6 +43,7 @@ export default function HomePage({
         ))}
       </select>
       <div>
+
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
       </div>
       <div>
@@ -42,6 +52,7 @@ export default function HomePage({
             key={resource.resource_id}
             oneResource={resource}
             users={users}
+
           />
         ))}
       </div>
