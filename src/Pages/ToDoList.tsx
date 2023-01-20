@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { url } from "../App";
 import { IResource, IToDo, IUser } from "../interfaces";
-import { Resource } from "./Resource";
+import ResourcePreview from "../components/resourcePreview";
 
 interface ToDoListResources {
   resources: IResource[];
@@ -35,15 +35,19 @@ export default function ToDoList({
   }, [userID]);
   return (
     <div>
-      <p>{userID}</p>
       {/* need to get the id of the resource from the resources fetched in home ?? */}
-      {usersToDoList.map((oneToDo) => (
-        <Resource
-          oneResource={oneToDo}
-          users={users}
-          key={oneToDo.resource_id}
-        />
-      ))}
+      {usersToDoList.length > 0 ? (
+        usersToDoList.map((oneToDo) => (
+          <ResourcePreview
+            key={oneToDo.resource_id}
+            resource={oneToDo}
+            userID={Number(userID)}
+          />
+        ))
+      ) : (
+        <p>your to-do list is empty!</p>
+      )}
+
       {/* map over the todolist to chave the resource component but need to add the bin inside the div */}
     </div>
   );
