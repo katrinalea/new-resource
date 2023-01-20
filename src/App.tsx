@@ -6,6 +6,7 @@ import { IUser } from "./interfaces";
 import { Routes, Route, NavLink } from "react-router-dom";
 import { IResource } from "./interfaces";
 import axios from "axios";
+import { Resource } from "./Pages/Resource";
 
 export const url =
   process.env.NODE_ENV === "production"
@@ -58,6 +59,10 @@ function App(): JSX.Element {
         <Route
           path="/to-do-list/:userID"
           element={<ToDoList resources={allResources} users={users} />}
+        />
+        <Route
+          path="/resource/:resourceID"
+          element={<Resource users={users} allResources={allResources} />}
         />
       </Routes>
     </div>
