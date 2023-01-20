@@ -2,6 +2,7 @@ import { IResource } from "../interfaces";
 import { url } from "../App";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 interface IResourcePreview {
   resource: IResource;
@@ -46,7 +47,9 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   return (
     <div>
       <h3> {props.resource.resource_name} </h3>
-      <button> Show more ! </button>
+      <Link to={`/resource/${props.resource.resource_id}`}>
+        <button> Show more ! </button>
+      </Link>
       {props.userID && (
         <div>
           <button
