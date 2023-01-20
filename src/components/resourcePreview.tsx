@@ -31,7 +31,6 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
     console.log(updatedLikeStatus);
     await axios.patch(likeURL, { like: updatedLikeStatus, userId: userid });
     setIsLiked(updatedLikeStatus);
-
   };
 
   const handleDisike = async (resourceid: number, userid: number) => {
@@ -42,7 +41,6 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
     await axios.patch(likeURL, { like: updatedDisLikeStatus, userId: userid });
 
     setIsLiked(updatedDisLikeStatus);
-
   };
 
   return (
