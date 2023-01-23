@@ -22,10 +22,14 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
     const fetchLikes = async () => {
       const completeURL =
         url + `/resources/${props.resource.resource_id}/likes/${props.userID}`;
-      const { data } = await axios.get(completeURL);
-      console.log("{data} type: " + typeof data);
-      console.log("data.is_liked: " + data.is_liked);
-      setIsLiked(data.is_liked);
+      console.log(completeURL);
+      const response = await fetch(completeURL);
+      const responseJSON = await response.json();
+      console.log(responseJSON);
+
+      if (responseJSON.length > 0) {
+        setIsLiked(responseJSON[0].is_liked);
+      }
     };
     if (props.userID !== null) {
       fetchLikes();
