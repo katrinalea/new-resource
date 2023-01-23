@@ -38,7 +38,7 @@ function App(): JSX.Element {
       <div className="navbar">
         <NavLink to="/">Homepage</NavLink>
 
-        {userID && <NavLink to="/add-resource">Add Resource</NavLink>}
+        {userID && <NavLink className = "add-resource" to="/add-resource">Add Resource</NavLink>}
 
         {userID && <NavLink to={`/to-do-list/${userID}`}>To-Do List</NavLink>}
       </div>
