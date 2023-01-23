@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResourcePreview from "../components/resourcePreview";
 import SearchBar from "../components/SearchBar";
 import TagFilter from "../components/TagFilter";
@@ -20,12 +20,20 @@ export default function HomePage({
   userID,
 }: IHomePageProps): JSX.Element {
   
+
+
   const [searchText, setSearchText] = useState<string>("");
   const filteredResources = filterResources(searchText, resources);
   const [finalFilteredResources, setFinalFilteredResources] = useState<IResource[]>(filteredResources)
-
+  const [lastClickedTag, setLastClickedTag] = useState<string>("")
+  
   const handleFilterTag = (clickedTag: string)=>{
-       setFinalFilteredResources(filteredResources)
+    if (clickedTag === lastClickedTag){
+      setFinalFilteredResources(filteredResources)
+      setLastClickedTag("")
+      return
+    }
+    setLastClickedTag(clickedTag)
     const tagFilteredResources = filteredResources.filter(resource => 
         {
           const allResourceTags: string = resource.tags.join("#").toLowerCase(); 
@@ -36,12 +44,15 @@ export default function HomePage({
       setFinalFilteredResources(tagFilteredResources)
     }
 
+    useEffect(()=>{
+      setFinalFilteredResources(filteredResources)
+    },[filteredResources])
 
 
   return (
     <div>
       <p>Home</p>
-      <select onChange={(e) => setUserID(Number(e.target.value))}>
+      <select className = "login-dropdown" onChange={(e) => setUserID(Number(e.target.value))}>
         <option selected={true} disabled>
           select a profile
         </option>

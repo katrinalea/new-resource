@@ -97,6 +97,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
           Resource Title:
         </p>
         <input
+        className="title"
           type="text"
           placeholder=""
           value={resourceSubmit.resource_name}
@@ -196,7 +197,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
 
         <p>Resource tags: Select all that are relevant</p>
         {technologies.map((tech) => (
-          <button key={tech} onClick={() => handleAddToTagsArray(tech)}>
+          <button className = "tag" key={tech} onClick={() => handleAddToTagsArray(tech)}>
             {tech}
           </button>
         ))}
