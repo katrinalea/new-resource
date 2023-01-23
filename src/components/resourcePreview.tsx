@@ -17,7 +17,6 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean | null>(null);
   console.log("resourcePreview rerendered");
   useEffect(() => {
-    debugger;
     console.log("useEffect called");
     const fetchLikes = async () => {
       const completeURL =
@@ -67,49 +66,52 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
           {isLiked === null ? (
             <div>
               <AiOutlineLike
-                onClick={() =>
-                  handleLike(props.resource.resource_id, props.resource.user_id)
-                }
+                onClick={() => {
+                  if (props.userID) {
+                    handleLike(props.resource.resource_id, props.userID);
+                  }
+                }}
               />
               <AiOutlineDislike
-                onClick={() =>
-                  handleDisike(
-                    props.resource.resource_id,
-                    props.resource.user_id
-                  )
-                }
+                onClick={() => {
+                  if (props.userID) {
+                    handleDisike(props.resource.resource_id, props.userID);
+                  }
+                }}
               />
             </div>
           ) : isLiked === false ? (
             <>
               <AiOutlineLike
-                onClick={() =>
-                  handleLike(props.resource.resource_id, props.resource.user_id)
-                }
+                onClick={() => {
+                  if (props.userID) {
+                    handleLike(props.resource.resource_id, props.userID);
+                  }
+                }}
               />
               <AiFillDislike
-                onClick={() =>
-                  handleDisike(
-                    props.resource.resource_id,
-                    props.resource.user_id
-                  )
-                }
+                onClick={() => {
+                  if (props.userID) {
+                    handleDisike(props.resource.resource_id, props.userID);
+                  }
+                }}
               />
             </>
           ) : (
             <>
               <AiFillLike
-                onClick={() =>
-                  handleLike(props.resource.resource_id, props.resource.user_id)
-                }
+                onClick={() => {
+                  if (props.userID) {
+                    handleLike(props.resource.resource_id, props.userID);
+                  }
+                }}
               />
               <AiOutlineDislike
-                onClick={() =>
-                  handleDisike(
-                    props.resource.resource_id,
-                    props.resource.user_id
-                  )
-                }
+                onClick={() => {
+                  if (props.userID) {
+                    handleDisike(props.resource.resource_id, props.userID);
+                  }
+                }}
               />
             </>
           )}
