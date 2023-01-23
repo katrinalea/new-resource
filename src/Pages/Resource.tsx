@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { IResource, IUser } from "../interfaces";
+import { formatTags } from "../utils/formatTags";
 
 interface ResourceProps {
   users: IUser[];
@@ -27,7 +28,9 @@ export function Resource({ allResources, users }: ResourceProps): JSX.Element {
       <p>{oneResource.selene_week}</p>
       <p>{oneResource.content_type}</p>
       <p>{oneResource.usage_status}</p>
-      <p>{oneResource.tags.join("#")}</p>
+      {formatTags(oneResource.tags).map(tag=>
+        <p key = {tag}> {tag}</p>
+      )}
     </>
   );
 }
