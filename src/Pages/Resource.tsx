@@ -1,11 +1,17 @@
+import { useParams } from "react-router-dom";
 import { IResource, IUser } from "../interfaces";
 
 interface ResourceProps {
-  oneResource: IResource;
   users: IUser[];
+  allResources: IResource[];
 }
 
-export function Resource({ oneResource, users }: ResourceProps): JSX.Element {
+export function Resource({ allResources, users }: ResourceProps): JSX.Element {
+  const { resourceID } = useParams();
+  const oneResourceArray = allResources.filter(
+    (resource) => resource.resource_id === Number(resourceID)
+  );
+  const oneResource = oneResourceArray[0];
   const filteredUser = users.filter(
     (user) => user.user_id === oneResource.user_id
   );
