@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ResourcePreview from "../components/ResourcePreview";
 import SearchBar from "../components/SearchBar";
 import TagFilter from "../components/TagFilter";
@@ -20,29 +20,30 @@ export default function HomePage({
   userID,
 }: IHomePageProps): JSX.Element {
   const [searchText, setSearchText] = useState<string>("");
-  const filteredResources = filterResources(searchText, resources);
-  const [finalFilteredResources, setFinalFilteredResources] =
-    useState<IResource[]>(filteredResources);
-  const [lastClickedTag, setLastClickedTag] = useState<string>("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
 
   const handleFilterTag = (clickedTag: string) => {
-    if (clickedTag === lastClickedTag) {
-      setFinalFilteredResources(filteredResources);
-      setLastClickedTag("");
-      return;
-    }
-    setLastClickedTag(clickedTag);
-    const tagFilteredResources = filteredResources.filter((resource) => {
-      const allResourceTags: string = resource.tags.join("#").toLowerCase();
-      console.log("clicked", clickedTag);
-      return allResourceTags.includes(clickedTag.toLowerCase());
-    });
-    setFinalFilteredResources(tagFilteredResources);
-  };
 
-  useEffect(() => {
-    setFinalFilteredResources(filteredResources);
-  }, [filteredResources]);
+    const currentTags = selectedTags;
+
+    if (!currentTags.includes(clickedTag)) {
+      currentTags.push(clickedTag);
+    } else {
+      delete currentTags[
+        currentTags.findIndex((tag) => {
+          return tag === clickedTag;
+        })
+      ];
+    }
+    setSelectedTags(currentTags.filter((tag) => {
+      return tag;
+    }));
+
+  }
+  const filteredResources: IResource[] = filterResources(searchText, selectedTags, resources);
+  // console.table(filteredResources)
+  // console.table(selectedTags)
 
   return (
     <div className="homepage-container">
@@ -70,7 +71,7 @@ export default function HomePage({
         <TagFilter handleFilterTag={handleFilterTag} />
       </div>
       <div className="resourcePrev-container">
-        {finalFilteredResources.map((resource) => (
+        {filteredResources.map((resource) => (
           <ResourcePreview
             key={resource.resource_id}
             resource={resource}
