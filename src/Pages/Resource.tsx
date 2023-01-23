@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
 import { IResource, IUser } from "../interfaces";
 import { formatTags } from "../utils/formatTags";
+import NewComment from "../components/NewComment";
 
 interface ResourceProps {
   users: IUser[];
   allResources: IResource[];
+  userID: number | null;
 }
 
-export function Resource({ allResources, users }: ResourceProps): JSX.Element {
+export function Resource({ allResources, users, userID }: ResourceProps): JSX.Element {
   const { resourceID } = useParams();
   const oneResourceArray = allResources.filter(
     (resource) => resource.resource_id === Number(resourceID)
@@ -31,6 +33,9 @@ export function Resource({ allResources, users }: ResourceProps): JSX.Element {
       {formatTags(oneResource.tags).map(tag=>
         <p key = {tag}> {tag}</p>
       )}
+      { userID && resourceID &&
+      <NewComment userID={userID} resourceID={parseInt(resourceID)}/>
+      }
     </>
   );
 }

@@ -62,7 +62,8 @@ function App(): JSX.Element {
         />
         <Route
           path="/resource/:resourceID"
-          element={<Resource users={users} allResources={allResources} />}
+          element={<Resource users={users} allResources={allResources}
+          userID={userID} />}
         />
       </Routes>
     </div>
