@@ -17,15 +17,13 @@ export function Resource({
   users,
   userID,
 }: ResourceProps): JSX.Element {
-  console.log("Resource.tsx re-rendered!");
-  if (allResources.length === 0) {
-    throw new Error("allResources is empty in Resource");
-  }
+
   const [comments, setComments] = useState<IComment[]>([]);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+
   const { resourceID } = useParams();
 
-  console.log("resourceID param: " + resourceID);
-  console.log("type of resourceID: " + typeof resourceID);
+  console.log("Resource.tsx re-rendered!");
 
   useEffect(() => {
     console.log("Resource.tsx useEffect called");
@@ -43,9 +41,10 @@ export function Resource({
       }
     };
     fetchComments();
-  }, [resourceID, setComments]);
 
-  console.log("allResources: ", { allResources });
+  }, [resourceID, setSubmitted, submitted]);
+
+
   const oneResourceArray = allResources.filter(
     (resource) => resource.resource_id === Number(resourceID)
   );
@@ -70,14 +69,23 @@ export function Resource({
       <p>{oneResource.selene_week}</p>
       <p>{oneResource.content_type}</p>
       <p>{oneResource.usage_status}</p>
+
       {formatTags(oneResource.tags).map((tag, i) => (
         <p key={i}> {tag}</p>
       ))}
       {userID && resourceID && (
-        <NewComment userID={userID} resourceID={parseInt(resourceID)} />
+        <NewComment
+          userID={userID}
+          resourceID={parseInt(resourceID)}
+          submitted={setSubmitted}
+        />
       )}
-      {comments.map((comment, i) => (
-        <p key={i}>{comment.comment}</p>
+      {comments.map((comment) => (
+        <>
+          <p>Comment posted by: User-{comment.user_id}</p>
+          <p key={comment.commment_id}>{comment.comment}</p>
+        </>
+
       ))}
     </>
   );

@@ -14,15 +14,13 @@ interface IResourcePreview {
 }
 
 export default function ResourcePreview(props: IResourcePreview): JSX.Element {
-  
   const [isLiked, setIsLiked] = useState<boolean | null>(null);
 
   console.log("resourcePreview rerendered");
   useEffect(() => {
     console.log("useEffect called");
-    
-    const fetchLikes = async () => {
 
+    const fetchLikes = async () => {
       const completeURL =
         url + `/resources/${props.resource.resource_id}/likes/${props.userID}`;
       console.log(completeURL);

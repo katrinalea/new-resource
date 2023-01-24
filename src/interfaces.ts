@@ -51,3 +51,19 @@ export interface IToDo {
   user_id: number;
   resource_id: number;
 }
+export interface IToDoResource {
+  resource_id: number;
+  resource_url: string;
+  author_name: string;
+  resource_name: string;
+  resource_description: string;
+  tags: string[];
+  content_type: string;
+  selene_week: string;
+  time_of_post: string;
+  user_id_posted: number;
+  usage_status: string;
+  recommendation_reason: string;
+  to_do_item_id: number;
+  user_id: number;
+}
