@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { url } from "../App";
-import { IToDoResource, IToDo, IUser } from "../interfaces";
+import { IToDoResource } from "../interfaces";
 import ResourcePreview from "../components/ResourcePreview";
 
 export default function ToDoList(): JSX.Element {

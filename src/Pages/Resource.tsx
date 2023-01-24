@@ -17,7 +17,6 @@ export function Resource({
   users,
   userID,
 }: ResourceProps): JSX.Element {
-
   const [comments, setComments] = useState<IComment[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -41,9 +40,7 @@ export function Resource({
       }
     };
     fetchComments();
-
   }, [resourceID, setSubmitted, submitted]);
-
 
   const oneResourceArray = allResources.filter(
     (resource) => resource.resource_id === Number(resourceID)
@@ -85,7 +82,6 @@ export function Resource({
           <p>Comment posted by: User-{comment.user_id}</p>
           <p key={comment.commment_id}>{comment.comment}</p>
         </>
-
       ))}
     </>
   );
