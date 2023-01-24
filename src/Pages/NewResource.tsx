@@ -63,6 +63,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
       await axios.post(`${url}/resources`, resource);
       setResourceSubmit(emptySubmission);
       setAttemptedSubmit(false);
+      window.alert("resource submitted");
     }
   }
 
