@@ -50,13 +50,8 @@ export function Resource({
   );
 
   const handleAddToDoList = async(userID: number, resourceID: number)=>{
-    try{
       await axios.post(url + "/to-do-list", {resource_id: resourceID, user_id: userID})
       window.alert("Added the post to your to do list")
-    }
-    catch(error){
-      console.error(error)
-    }
   }
   return (
     <>
