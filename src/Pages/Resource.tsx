@@ -4,6 +4,7 @@ import { formatTags } from "../utils/formatTags";
 import NewComment from "../components/NewComment";
 import { useEffect, useState } from "react";
 import { url } from "../App";
+import axios from "axios";
 
 interface ResourceProps {
   users: IUser[];
@@ -47,6 +48,16 @@ export function Resource({
   const filteredUser = users.filter(
     (user) => user.user_id === oneResource.user_id
   );
+
+  const handleAddToDoList = async(userID: number, resourceID: number)=>{
+    try{
+      await axios.post(url + "/to-do-list", {resource_id: resourceID, user_id: userID})
+      window.alert("Added the post to your to do list")
+    }
+    catch(error){
+      console.error(error)
+    }
+  }
   return (
     <>
       <h1>{oneResource.resource_name}</h1>
@@ -62,6 +73,7 @@ export function Resource({
       {formatTags(oneResource.tags).map((tag) => (
         <p key={tag}> {tag}</p>
       ))}
+      {userID && <button onClick = {()=>handleAddToDoList(userID, Number(resourceID))}>Add to To Do List</button>}
       {userID && resourceID && (
         <NewComment
           userID={userID}
