@@ -70,14 +70,14 @@ export function Resource({
       <p>{oneResource.selene_week}</p>
       <p>{oneResource.content_type}</p>
       <p>{oneResource.usage_status}</p>
-      {formatTags(oneResource.tags).map((tag) => (
-        <p key={tag}> {tag}</p>
+      {formatTags(oneResource.tags).map((tag, i) => (
+        <p key={i}> {tag}</p>
       ))}
       {userID && resourceID && (
         <NewComment userID={userID} resourceID={parseInt(resourceID)} />
       )}
-      {comments.map((comment) => (
-        <p key={comment.commment_id}>{comment.comment}</p>
+      {comments.map((comment, i) => (
+        <p key={i}>{comment.comment}</p>
       ))}
     </>
   );
