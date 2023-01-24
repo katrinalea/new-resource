@@ -4,10 +4,11 @@ import { formatTags } from "../utils/formatTags";
 import NewComment from "../components/NewComment";
 import { useEffect, useState } from "react";
 import { url } from "../App";
+import formatSubmissionDate from "../utils/formatSubmissionDate";
 
 interface ResourceProps {
   users: IUser[];
-  allResources: IResource[];
+  allResources: IResource[] | [];
   userID: number | null;
 }
 
@@ -22,8 +23,9 @@ export function Resource({
   const { resourceID } = useParams();
 
   console.log("Resource.tsx re-rendered!");
+
   useEffect(() => {
-    console.log("useEffect called");
+    console.log("Resource.tsx useEffect called");
 
     const fetchComments = async () => {
       const completeURL = url + `/resources/${resourceID}/comments`;
@@ -43,10 +45,15 @@ export function Resource({
   const oneResourceArray = allResources.filter(
     (resource) => resource.resource_id === Number(resourceID)
   );
+  console.log({ oneResourceArray });
+  if (oneResourceArray.length < 1) {
+    console.error("expected full array, got an empty oneResourceArray");
+  }
   const oneResource = oneResourceArray[0];
   const filteredUser = users.filter(
     (user) => user.user_id === oneResource.user_id
   );
+
   return (
     <>
       <h1>{oneResource.resource_name}</h1>
@@ -55,12 +62,13 @@ export function Resource({
       <p>{oneResource.recommendation_reason}</p>
       <a href={oneResource.resource_url}>{oneResource.resource_url}</a>
       <p>{filteredUser[0].user_name}</p>
-      <small>{oneResource.time_of_post}</small>
+      <small>{formatSubmissionDate(oneResource.time_of_post)}</small>
       <p>{oneResource.selene_week}</p>
       <p>{oneResource.content_type}</p>
       <p>{oneResource.usage_status}</p>
-      {formatTags(oneResource.tags).map((tag) => (
-        <p key={tag}> {tag}</p>
+
+      {formatTags(oneResource.tags).map((tag, i) => (
+        <p key={i}> {tag}</p>
       ))}
       {userID && resourceID && (
         <NewComment
