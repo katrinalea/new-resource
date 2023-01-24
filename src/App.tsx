@@ -68,11 +68,15 @@ function App(): JSX.Element {
         <Route
           path="/resource/:resourceID"
           element={
-            <Resource
-              users={users}
-              allResources={allResources}
-              userID={userID}
-            />
+            allResources.length > 0 ? (
+              <Resource
+                users={users}
+                allResources={allResources}
+                userID={userID}
+              />
+            ) : (
+              <></>
+            )
           }
         />
       </Routes>
