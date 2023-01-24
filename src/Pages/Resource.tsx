@@ -11,20 +11,22 @@ interface ResourceProps {
   userID: number | null;
 }
 
-export function Resource({ allResources, users, userID }: ResourceProps): JSX.Element {
-  
+export function Resource({
+  allResources,
+  users,
+  userID,
+}: ResourceProps): JSX.Element {
   const [comments, setComments] = useState<IComment[]>([]);
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   const { resourceID } = useParams();
-  
+
   console.log("Resource.tsx re-rendered!");
   useEffect(() => {
     console.log("useEffect called");
 
     const fetchComments = async () => {
-
-      const completeURL =
-      url + `/resources/${resourceID}/comments`;
+      const completeURL = url + `/resources/${resourceID}/comments`;
       console.log(completeURL);
 
       const response = await fetch(completeURL);
@@ -36,8 +38,8 @@ export function Resource({ allResources, users, userID }: ResourceProps): JSX.El
       }
     };
     fetchComments();
-  }, [resourceID, setComments])
-  
+  }, [resourceID, setSubmitted, submitted]);
+
   const oneResourceArray = allResources.filter(
     (resource) => resource.resource_id === Number(resourceID)
   );
@@ -57,15 +59,19 @@ export function Resource({ allResources, users, userID }: ResourceProps): JSX.El
       <p>{oneResource.selene_week}</p>
       <p>{oneResource.content_type}</p>
       <p>{oneResource.usage_status}</p>
-      {formatTags(oneResource.tags).map(tag=>
-        <p key = {tag}> {tag}</p>
+      {formatTags(oneResource.tags).map((tag) => (
+        <p key={tag}> {tag}</p>
+      ))}
+      {userID && resourceID && (
+        <NewComment
+          userID={userID}
+          resourceID={parseInt(resourceID)}
+          submitted={setSubmitted}
+        />
       )}
-      { userID && resourceID &&
-      <NewComment userID={userID} resourceID={parseInt(resourceID)}/>
-      }
-      { comments.map( (comment) =>
-       <p key={comment.commment_id}>{comment.comment}</p>
-      )}
+      {comments.map((comment) => (
+        <p key={comment.commment_id}>{comment.comment}</p>
+      ))}
     </>
   );
 }
