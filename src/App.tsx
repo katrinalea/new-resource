@@ -19,6 +19,7 @@ function App(): JSX.Element {
   const [allResources, setAllResources] = useState<IResource[]>([]);
 
   useEffect(() => {
+    console.log("fetching all resources!");
     const userNamesCompleteURL = url + "/users";
     const resourcesURL = url + "/resources";
 
@@ -64,11 +65,15 @@ function App(): JSX.Element {
         <Route
           path="/resource/:resourceID"
           element={
-            <Resource
-              users={users}
-              allResources={allResources}
-              userID={userID}
-            />
+            allResources.length > 0 ? (
+              <Resource
+                users={users}
+                allResources={allResources}
+                userID={userID}
+              />
+            ) : (
+              <></>
+            )
           }
         />
       </Routes>

@@ -51,7 +51,7 @@ export default function HomePage({
         className="login-dropdown"
         onChange={(e) => setUserID(Number(e.target.value))}
       >
-        <option selected={true} disabled>
+        <option selected={!userID && true} disabled>
           select a profile
         </option>
         {users.map((user) => (
@@ -60,6 +60,7 @@ export default function HomePage({
           </option>
         ))}
       </select>
+      {userID && <button onClick={() => setUserID(null)}>sign out</button>}
       <div>
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
         <TagFilter handleFilterTag={handleFilterTag} />
