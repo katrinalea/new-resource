@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { url } from "../App";
 import { IResource, IToDo, IUser } from "../interfaces";
-import ResourcePreview from "../components/resourcePreview";
+import ResourcePreview from "../components/ResourcePreview";
 
 interface ToDoListResources {
   resources: IResource[];

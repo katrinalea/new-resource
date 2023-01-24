@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ResourcePreview from "../components/resourcePreview";
+import ResourcePreview from "../components/ResourcePreview";
 import SearchBar from "../components/SearchBar";
 import TagFilter from "../components/TagFilter";
 import { IUser } from "../interfaces";
@@ -19,8 +19,6 @@ export default function HomePage({
   users,
   userID,
 }: IHomePageProps): JSX.Element {
-  
-
 
   const [searchText, setSearchText] = useState<string>("");
   const filteredResources = filterResources(searchText, resources);

@@ -1,14 +1,43 @@
 import { useParams } from "react-router-dom";
-import { IResource, IUser } from "../interfaces";
+import { IResource, IUser, IComment } from "../interfaces";
 import { formatTags } from "../utils/formatTags";
+import NewComment from "../components/NewComment";
+import { useEffect, useState } from "react";
+import { url } from "../App";
 
 interface ResourceProps {
   users: IUser[];
   allResources: IResource[];
+  userID: number | null;
 }
 
-export function Resource({ allResources, users }: ResourceProps): JSX.Element {
+export function Resource({ allResources, users, userID }: ResourceProps): JSX.Element {
+  
+  const [comments, setComments] = useState<IComment[]>([]);
+
   const { resourceID } = useParams();
+  
+  console.log("Resource.tsx re-rendered!");
+  useEffect(() => {
+    console.log("useEffect called");
+
+    const fetchComments = async () => {
+
+      const completeURL =
+      url + `/resources/${resourceID}/comments`;
+      console.log(completeURL);
+
+      const response = await fetch(completeURL);
+      const responseJSON = await response.json();
+      console.log(responseJSON);
+
+      if (responseJSON.length > 0) {
+        setComments(responseJSON);
+      }
+    };
+    fetchComments();
+  }, [resourceID, setComments])
+  
   const oneResourceArray = allResources.filter(
     (resource) => resource.resource_id === Number(resourceID)
   );
@@ -30,6 +59,12 @@ export function Resource({ allResources, users }: ResourceProps): JSX.Element {
       <p>{oneResource.usage_status}</p>
       {formatTags(oneResource.tags).map(tag=>
         <p key = {tag}> {tag}</p>
+      )}
+      { userID && resourceID &&
+      <NewComment userID={userID} resourceID={parseInt(resourceID)}/>
+      }
+      { comments.map( (comment) =>
+       <p key={comment.commment_id}>{comment.comment}</p>
       )}
     </>
   );
