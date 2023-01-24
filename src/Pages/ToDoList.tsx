@@ -1,48 +1,47 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { url } from "../App";
-import { IResource, IToDo, IUser } from "../interfaces";
+import { IToDoResource, IToDo, IUser } from "../interfaces";
 import ResourcePreview from "../components/ResourcePreview";
 
-interface ToDoListResources {
-  resources: IResource[];
-  users: IUser[];
-}
-export default function ToDoList({
-  resources,
-  users,
-}: ToDoListResources): JSX.Element {
+export default function ToDoList(): JSX.Element {
   const { userID } = useParams();
-  const [toDos, setToDos] = useState<IToDo[]>([]);
+  const [toDoResources, setToDoResources] = useState<IToDoResource[]>([]);
 
-  const idsArray = toDos.map((x) => x.resource_id); // parse array of to do objects into array of resource ids
-  const usersToDoList = resources.filter((resource) =>
-    idsArray.includes(resource.resource_id)
-  ); // filters array of resource objects to only those resources included in ids.array
-
-  console.table(usersToDoList);
-  console.log("rerendering");
+  const endpoint = url + `/to-do-list/${userID}/`;
+  const fetchTodoListItems = useCallback(async () => {
+    const { data } = await axios.get(endpoint);
+    setToDoResources(data);
+  }, [endpoint]);
 
   useEffect(() => {
-    const endpoint = url + `/to-do-list/${userID}/`;
-
-    const fetchTodoListItems = async () => {
-      const { data } = await axios.get(endpoint);
-      setToDos(data);
-    };
     fetchTodoListItems();
-  }, [userID]);
+  }, [fetchTodoListItems, userID]);
+
+  const handleDeleteToDoItem = async (todoid: number) => {
+    console.log("entered delete");
+    await axios.delete(url + `/to-do-list/${todoid}`);
+    console.log("deleted");
+    await fetchTodoListItems();
+    console.log("refreshed");
+  };
+
   return (
     <div>
       {/* need to get the id of the resource from the resources fetched in home ?? */}
-      {usersToDoList.length > 0 ? (
-        usersToDoList.map((oneToDo) => (
-          <ResourcePreview
-            key={oneToDo.resource_id}
-            resource={oneToDo}
-            userID={Number(userID)}
-          />
+      {toDoResources.length > 0 ? (
+        toDoResources.map((oneToDo) => (
+          <>
+            <ResourcePreview
+              key={oneToDo.resource_id}
+              resource={oneToDo}
+              userID={Number(userID)}
+            />
+            <button onClick={() => handleDeleteToDoItem(oneToDo.to_do_item_id)}>
+              🗑️{" "}
+            </button>
+          </>
         ))
       ) : (
         <p>your to-do list is empty!</p>

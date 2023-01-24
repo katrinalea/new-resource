@@ -70,7 +70,10 @@ export function Resource({
         />
       )}
       {comments.map((comment) => (
-        <p key={comment.commment_id}>{comment.comment}</p>
+        <>
+          <p>Comment posted by: User-{comment.user_id}</p>
+          <p key={comment.commment_id}>{comment.comment}</p>
+        </>
       ))}
     </>
   );
