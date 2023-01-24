@@ -39,7 +39,11 @@ function App(): JSX.Element {
       <div className="navbar">
         <NavLink to="/">Homepage</NavLink>
 
-        {userID && <NavLink className = "add-resource" to="/add-resource">Add Resource</NavLink>}
+        {userID && (
+          <NavLink className="add-resource" to="/add-resource">
+            Add Resource
+          </NavLink>
+        )}
 
         {userID && <NavLink to={`/to-do-list/${userID}`}>To-Do List</NavLink>}
       </div>
@@ -56,14 +60,16 @@ function App(): JSX.Element {
           }
         />
         <Route path="/add-resource" element={<NewResource userID={userID} />} />
-        <Route
-          path="/to-do-list/:userID"
-          element={<ToDoList resources={allResources} users={users} />}
-        />
+        <Route path="/to-do-list/:userID" element={<ToDoList />} />
         <Route
           path="/resource/:resourceID"
-          element={<Resource users={users} allResources={allResources}
-          userID={userID} />}
+          element={
+            <Resource
+              users={users}
+              allResources={allResources}
+              userID={userID}
+            />
+          }
         />
       </Routes>
     </div>

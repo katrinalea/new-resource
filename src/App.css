@@ -1,19 +1,19 @@
-.title{
-    background: pink
+.title {
+  background: pink;
 }
 
-.tag{
-    background:pink
+.tag {
+  background: pink;
 }
 
-.tag:active{
-    background:yellow
+.tag:active {
+  background: yellow;
 }
 
-.add-resource{
-    background:blue
+.add-resource {
+  background: blue;
 }
 
-.login-dropdown{
-    background: green
+.login-dropdown {
+  background: green;
 }
