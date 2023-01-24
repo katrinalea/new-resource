@@ -28,7 +28,7 @@ export const seleneWeeks = [
 ];
 
 export default function NewResource(props: INewResourceProps): JSX.Element {
-  const [resourceSubmit, setResourceSubmit] = useState<ISubmitResource>({
+  const emptySubmission = {
     resource_url: "",
     author_name: "",
     resource_name: "",
@@ -39,7 +39,10 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
     usage_status: "",
     recommendation_reason: "",
     user_id: props.userID,
-  });
+  };
+
+  const [resourceSubmit, setResourceSubmit] =
+    useState<ISubmitResource>(emptySubmission);
 
   const [attemptedSubmit, setAttemptedSubmit] = useState<boolean>(false);
 
@@ -58,6 +61,8 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
       window.alert("missing fields");
     } else {
       await axios.post(`${url}/resources`, resource);
+      setResourceSubmit(emptySubmission);
+      setAttemptedSubmit(false);
     }
   }
 
@@ -97,7 +102,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
           Resource Title:
         </p>
         <input
-        className="title"
+          className="title"
           type="text"
           placeholder=""
           value={resourceSubmit.resource_name}
@@ -197,7 +202,11 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
 
         <p>Resource tags: Select all that are relevant</p>
         {technologies.map((tech) => (
-          <button className = "tag" key={tech} onClick={() => handleAddToTagsArray(tech)}>
+          <button
+            className="tag"
+            key={tech}
+            onClick={() => handleAddToTagsArray(tech)}
+          >
             {tech}
           </button>
         ))}

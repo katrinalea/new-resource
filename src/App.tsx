@@ -19,6 +19,7 @@ function App(): JSX.Element {
   const [allResources, setAllResources] = useState<IResource[]>([]);
 
   useEffect(() => {
+    console.log("fetching all resources!");
     const userNamesCompleteURL = url + "/users";
     const resourcesURL = url + "/resources";
 
@@ -39,7 +40,11 @@ function App(): JSX.Element {
       <div className="navbar">
         <NavLink to="/">Homepage</NavLink>
 
-        {userID && <NavLink className = "add-resource" to="/add-resource">Add Resource</NavLink>}
+        {userID && (
+          <NavLink className="add-resource" to="/add-resource">
+            Add Resource
+          </NavLink>
+        )}
 
         {userID && <NavLink to={`/to-do-list/${userID}`}>To-Do List</NavLink>}
       </div>
@@ -62,8 +67,13 @@ function App(): JSX.Element {
         />
         <Route
           path="/resource/:resourceID"
-          element={<Resource users={users} allResources={allResources}
-          userID={userID} />}
+          element={
+            <Resource
+              users={users}
+              allResources={allResources}
+              userID={userID}
+            />
+          }
         />
       </Routes>
     </div>

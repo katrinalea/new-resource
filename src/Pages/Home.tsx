@@ -19,39 +19,39 @@ export default function HomePage({
   users,
   userID,
 }: IHomePageProps): JSX.Element {
-
   const [searchText, setSearchText] = useState<string>("");
   const filteredResources = filterResources(searchText, resources);
-  const [finalFilteredResources, setFinalFilteredResources] = useState<IResource[]>(filteredResources)
-  const [lastClickedTag, setLastClickedTag] = useState<string>("")
-  
-  const handleFilterTag = (clickedTag: string)=>{
-    if (clickedTag === lastClickedTag){
-      setFinalFilteredResources(filteredResources)
-      setLastClickedTag("")
-      return
-    }
-    setLastClickedTag(clickedTag)
-    const tagFilteredResources = filteredResources.filter(resource => 
-        {
-          const allResourceTags: string = resource.tags.join("#").toLowerCase(); 
-          console.log("clicked", clickedTag)
-          return allResourceTags.includes(clickedTag.toLowerCase())
-        }
-      )
-      setFinalFilteredResources(tagFilteredResources)
-    }
+  const [finalFilteredResources, setFinalFilteredResources] =
+    useState<IResource[]>(filteredResources);
+  const [lastClickedTag, setLastClickedTag] = useState<string>("");
 
-    useEffect(()=>{
-      setFinalFilteredResources(filteredResources)
-    },[filteredResources])
+  const handleFilterTag = (clickedTag: string) => {
+    if (clickedTag === lastClickedTag) {
+      setFinalFilteredResources(filteredResources);
+      setLastClickedTag("");
+      return;
+    }
+    setLastClickedTag(clickedTag);
+    const tagFilteredResources = filteredResources.filter((resource) => {
+      const allResourceTags: string = resource.tags.join("#").toLowerCase();
+      console.log("clicked", clickedTag);
+      return allResourceTags.includes(clickedTag.toLowerCase());
+    });
+    setFinalFilteredResources(tagFilteredResources);
+  };
 
+  useEffect(() => {
+    setFinalFilteredResources(filteredResources);
+  }, [filteredResources]);
 
   return (
     <div>
       <p>Home</p>
-      <select className = "login-dropdown" onChange={(e) => setUserID(Number(e.target.value))}>
-        <option selected={true} disabled>
+      <select
+        className="login-dropdown"
+        onChange={(e) => setUserID(Number(e.target.value))}
+      >
+        <option selected={!userID && true} disabled>
           select a profile
         </option>
         {users.map((user) => (
@@ -60,9 +60,10 @@ export default function HomePage({
           </option>
         ))}
       </select>
+      {userID && <button onClick={() => setUserID(null)}>sign out</button>}
       <div>
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
-        <TagFilter handleFilterTag={handleFilterTag}/>
+        <TagFilter handleFilterTag={handleFilterTag} />
       </div>
       <div>
         {finalFilteredResources.map((resource) => (
