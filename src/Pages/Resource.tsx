@@ -7,7 +7,6 @@ import { url } from "../App";
 import axios from "axios";
 import formatSubmissionDate from "../utils/formatSubmissionDate";
 
-
 interface ResourceProps {
   users: IUser[];
   allResources: IResource[] | [];
@@ -56,10 +55,13 @@ export function Resource({
     (user) => user.user_id === oneResource.user_id
   );
 
-  const handleAddToDoList = async(userID: number, resourceID: number)=>{
-      await axios.post(url + "/to-do-list", {resource_id: resourceID, user_id: userID})
-      window.alert("Added the post to your to do list")
-  }
+  const handleAddToDoList = async (userID: number, resourceID: number) => {
+    await axios.post(url + "/to-do-list", {
+      resource_id: resourceID,
+      user_id: userID,
+    });
+    window.alert("Added the post to your to do list");
+  };
 
   return (
     <>
@@ -77,7 +79,11 @@ export function Resource({
       {formatTags(oneResource.tags).map((tag, i) => (
         <p key={i}> {tag}</p>
       ))}
-      {userID && <button onClick = {()=>handleAddToDoList(userID, Number(resourceID))}>Add to To Do List</button>}
+      {userID && (
+        <button onClick={() => handleAddToDoList(userID, Number(resourceID))}>
+          Add to To Do List
+        </button>
+      )}
       {userID && resourceID && (
         <NewComment
           userID={userID}
