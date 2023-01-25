@@ -28,7 +28,10 @@ export default function ToDoList(): JSX.Element {
   };
 
   return (
+    
     <div className="toDoPage">
+      <h1>To Do List</h1>
+
       {/* need to get the id of the resource from the resources fetched in home ?? */}
       {toDoResources.length > 0 ? (
         toDoResources.map((oneToDo) => (
@@ -41,6 +44,7 @@ export default function ToDoList(): JSX.Element {
                   userID={Number(userID)}
                 />
                 <button
+                  className=  "button-30"
                   onClick={() => handleDeleteToDoItem(oneToDo.to_do_item_id)}
                 >
                   🗑️{" "}

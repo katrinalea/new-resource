@@ -6,7 +6,9 @@
   height: 50px;
   outline: none;
 }
+
 .navbar {
+  border-radius: 20px;
   font-size: x-large;
   margin: 1px;
   position: fixed;
@@ -38,6 +40,10 @@
   gap: 1vw;
 }
 
+.likes{
+  margin-top: 10px;
+  font-size: xx-large
+}
 input {
   height: 40px;
   width: 250px;
@@ -52,6 +58,7 @@ input {
   padding-right: 40px;
   color: #fff;
   margin: 1px;
+  margin-top:10px
 }
 .form {
   font-size: large;
@@ -78,8 +85,11 @@ body {
   justify-content: center;
   margin-top: 10%;
 }
-
+.link{
+  text-decoration: none;
+}
 .button-30 {
+  margin-left: 10px;
   align-items: center;
   appearance: none;
   background-color: #fcfcfd;

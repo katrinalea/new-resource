@@ -46,7 +46,7 @@ export default function HomePage({
 
   return (
     <div className="homepage-container">
-      <p>Home</p>
+      <h1>Home</h1>
       <select
         className="dropdown"
         onChange={(e) => setUserID(Number(e.target.value))}
