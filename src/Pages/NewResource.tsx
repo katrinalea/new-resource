@@ -87,8 +87,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
 
   return (
     <div>
-      <p>Create a new resource</p>
+      <h1>Create a new resource</h1>
       <form
+        className="form"
         onSubmit={(e) => {
           e.preventDefault();
         }}
@@ -168,6 +169,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
         />
         <p> Week to complete:</p>
         <select
+          className="dropdown"
           onChange={(e) =>
             setResourceSubmit({
               ...resourceSubmit,
@@ -186,6 +188,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
         </select>
         <p> Type of resource: </p>
         <select
+          className="dropdown"
           onChange={(e) =>
             setResourceSubmit({
               ...resourceSubmit,
@@ -204,7 +207,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
         <p>Resource tags: Select all that are relevant</p>
         {technologies.map((tech) => (
           <button
-            className="tag"
+            className="button-8"
             key={tech}
             onClick={() => handleAddToTagsArray(tech)}
           >
@@ -213,6 +216,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
         ))}
         <p>Have you used this?</p>
         <select
+          className="dropdown"
           onChange={(e) =>
             setResourceSubmit({
               ...resourceSubmit,
@@ -244,8 +248,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
           }
         />
       </form>
-
+      <br />
       <button
+        className="button-30"
         onClick={() => {
           handleSubmitResource(resourceSubmit);
           setAttemptedSubmit(true);

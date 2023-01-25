@@ -10,7 +10,11 @@ export default function TagFilter({
   return (
     <div>
       {technologies.map((technology) => (
-        <button key={technology} onClick={() => handleFilterTag(technology)}>
+        <button
+          className="button-8"
+          key={technology}
+          onClick={() => handleFilterTag(technology)}
+        >
           {technology}
         </button>
       ))}

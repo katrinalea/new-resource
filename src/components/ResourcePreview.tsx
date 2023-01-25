@@ -59,10 +59,10 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   };
 
   return (
-    <div>
-      <h3> {props.resource.resource_name} </h3>
+    <div className="resourcePreview">
+      <h3 className="resourceTitle"> {props.resource.resource_name} </h3>
       <Link to={`/resource/${props.resource.resource_id}`}>
-        <button> Show more ! </button>
+        <button className="button-30"> Show more ! </button>
       </Link>
       {props.userID && (
         <div>

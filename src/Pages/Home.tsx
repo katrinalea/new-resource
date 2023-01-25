@@ -45,10 +45,10 @@ export default function HomePage({
   }, [filteredResources]);
 
   return (
-    <div>
+    <div className="homepage-container">
       <p>Home</p>
       <select
-        className="login-dropdown"
+        className="dropdown"
         onChange={(e) => setUserID(Number(e.target.value))}
       >
         <option selected={!userID && true} disabled>
@@ -60,12 +60,16 @@ export default function HomePage({
           </option>
         ))}
       </select>
-      {userID && <button onClick={() => setUserID(null)}>sign out</button>}
+      {userID && (
+        <button className="button-30" onClick={() => setUserID(null)}>
+          sign out
+        </button>
+      )}
       <div>
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
         <TagFilter handleFilterTag={handleFilterTag} />
       </div>
-      <div>
+      <div className="resourcePrev-container">
         {finalFilteredResources.map((resource) => (
           <ResourcePreview
             key={resource.resource_id}
