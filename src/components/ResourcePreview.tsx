@@ -27,7 +27,7 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
 
       const response = await fetch(completeURL);
       const responseJSON = await response.json();
-      console.log(responseJSON);
+      console.table(responseJSON);
 
       if (responseJSON.length > 0) {
         setIsLiked(responseJSON[0].is_liked);

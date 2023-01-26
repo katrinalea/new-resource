@@ -2,6 +2,9 @@ import { ISubmitResource } from "../interfaces";
 import { useState } from "react";
 import axios from "axios";
 import { url } from "../App";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface INewResourceProps {
   userID: number | null;
@@ -49,8 +52,6 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
   const tagsArray: string[] = resourceSubmit.tags.filter((tag) => {
     return tag;
   });
-  console.table(resourceSubmit.tags);
-  console.table(tagsArray);
 
   async function handleSubmitResource(resource: ISubmitResource) {
     if (
@@ -61,6 +62,11 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
       window.alert("missing fields");
     } else {
       await axios.post(`${url}/resources`, resource);
+      if (process.env.DISCORD_HOOK) {
+        console.log("umm hello!")
+        await axios.post(`${process.env.DISCORD_HOOK}`, 
+        {content: resourceSubmit.resource_name})
+      }
       setResourceSubmit(emptySubmission);
       setAttemptedSubmit(false);
       window.alert("resource submitted");

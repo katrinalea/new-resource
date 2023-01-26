@@ -34,7 +34,7 @@ export function Resource({
 
       const response = await fetch(completeURL);
       const responseJSON = await response.json();
-      console.log(responseJSON);
+      console.table(responseJSON);
 
       if (responseJSON.length > 0) {
         setComments(responseJSON);
