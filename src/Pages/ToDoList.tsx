@@ -36,7 +36,7 @@ export default function ToDoList(): JSX.Element {
         toDoResources.map((oneToDo) => (
           <>
             <div>
-              <div>
+              <div  className="resourcePreview">
                 <ResourcePreview
                   key={oneToDo.resource_id}
                   resource={oneToDo}
