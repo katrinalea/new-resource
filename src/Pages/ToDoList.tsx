@@ -28,19 +28,28 @@ export default function ToDoList(): JSX.Element {
   };
 
   return (
-    <div>
+    <div className="toDoPage">
+      <h1>To Do List</h1>
+
       {/* need to get the id of the resource from the resources fetched in home ?? */}
       {toDoResources.length > 0 ? (
         toDoResources.map((oneToDo) => (
           <>
-            <ResourcePreview
-              key={oneToDo.resource_id}
-              resource={oneToDo}
-              userID={Number(userID)}
-            />
-            <button onClick={() => handleDeleteToDoItem(oneToDo.to_do_item_id)}>
-              🗑️{" "}
-            </button>
+            <div>
+              <div>
+                <ResourcePreview
+                  key={oneToDo.resource_id}
+                  resource={oneToDo}
+                  userID={Number(userID)}
+                />
+                <button
+                  className="button-30"
+                  onClick={() => handleDeleteToDoItem(oneToDo.to_do_item_id)}
+                >
+                  🗑️{" "}
+                </button>
+              </div>
+            </div>
           </>
         ))
       ) : (

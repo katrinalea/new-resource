@@ -80,7 +80,10 @@ export function Resource({
         <p key={i}> {tag}</p>
       ))}
       {userID && (
-        <button onClick={() => handleAddToDoList(userID, Number(resourceID))}>
+        <button
+          className="button-30"
+          onClick={() => handleAddToDoList(userID, Number(resourceID))}
+        >
           Add to To Do List
         </button>
       )}

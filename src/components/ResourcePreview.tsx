@@ -59,15 +59,15 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   };
 
   return (
-    <div>
-      <h3> {props.resource.resource_name} </h3>
-      <Link to={`/resource/${props.resource.resource_id}`}>
-        <button> Show more ! </button>
+    <div className="resourcePreview">
+      <h3 className="resourceTitle"> {props.resource.resource_name} </h3>
+      <Link className="link" to={`/resource/${props.resource.resource_id}`}>
+        <button className="button-30"> Show more! </button>
       </Link>
       {props.userID && (
         <div>
           {isLiked === null ? (
-            <div>
+            <div className="likes">
               <AiOutlineLike
                 onClick={() => {
                   if (props.userID) {
@@ -84,7 +84,7 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
               />
             </div>
           ) : isLiked === false ? (
-            <>
+            <div className="likes">
               <AiOutlineLike
                 onClick={() => {
                   if (props.userID) {
@@ -99,9 +99,9 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
                   }
                 }}
               />
-            </>
+            </div>
           ) : (
-            <>
+            <div className="likes">
               <AiFillLike
                 onClick={() => {
                   if (props.userID) {
@@ -116,7 +116,7 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
                   }
                 }}
               />
-            </>
+            </div>
           )}
         </div>
       )}
