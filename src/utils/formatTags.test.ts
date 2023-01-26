@@ -4,7 +4,7 @@ const tags = [
   '{"React","Typescript","Javascript","Front-end","Back-end","CSS","HTML","SQL"}',
 ];
 
-const empty = ["{}"]
+const empty = ["{}"];
 
 test("formatTags gets rid of curly braces and returns an array", () => {
   expect(formatTags(tags)).toStrictEqual([
@@ -17,7 +17,5 @@ test("formatTags gets rid of curly braces and returns an array", () => {
     "HTML",
     "SQL",
   ]);
-  expect(formatTags(empty)).toStrictEqual([
-    "No Tags"
-  ]);
+  expect(formatTags(empty)).toStrictEqual(["No Tags"]);
 });
