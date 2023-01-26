@@ -63,9 +63,10 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
     } else {
       await axios.post(`${url}/resources`, resource);
       if (process.env.DISCORD_HOOK) {
-        console.log("umm hello!")
-        await axios.post(`${process.env.DISCORD_HOOK}`, 
-        {content: resourceSubmit.resource_name})
+        console.log("umm hello!");
+        await axios.post(`${process.env.DISCORD_HOOK}`, {
+          content: resourceSubmit.resource_name,
+        });
       }
       setResourceSubmit(emptySubmission);
       setAttemptedSubmit(false);
