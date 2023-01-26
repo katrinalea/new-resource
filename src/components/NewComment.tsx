@@ -38,7 +38,9 @@ export default function NewComment(props: INewCommentProps): JSX.Element {
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
       ></input>
-      <button className = "button-30"onClick={handleSubmit}>Submit comment</button>
+      <button className="button-30" onClick={handleSubmit}>
+        Submit comment
+      </button>
     </div>
   );
 }

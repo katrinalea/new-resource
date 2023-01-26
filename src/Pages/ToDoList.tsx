@@ -28,7 +28,6 @@ export default function ToDoList(): JSX.Element {
   };
 
   return (
-    
     <div className="toDoPage">
       <h1>To Do List</h1>
 
@@ -44,7 +43,7 @@ export default function ToDoList(): JSX.Element {
                   userID={Number(userID)}
                 />
                 <button
-                  className=  "button-30"
+                  className="button-30"
                   onClick={() => handleDeleteToDoItem(oneToDo.to_do_item_id)}
                 >
                   🗑️{" "}
