@@ -60,9 +60,10 @@ export default function HomePage({
       <h1>Home</h1>
       <select
         className="dropdown"
+        defaultValue={""}
         onChange={(e) => setUserID(Number(e.target.value))}
       >
-        <option selected={!userID && true} disabled>
+        <option value={""} disabled hidden>
           select a profile
         </option>
         {users.map((user) => (
