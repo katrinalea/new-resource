@@ -200,7 +200,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         >
-        <option value={""} disabled hidden>
+          <option value={""} disabled hidden>
             select an option
           </option>
           <option value="read">Read only</option>
@@ -211,7 +211,9 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
         <p>Resource tags: Select all that are relevant</p>
         {technologies.map((tech) => (
           <button
-            className={tagsArray.includes(tech) ? "button-8-clicked" : "button-8"}
+            className={
+              tagsArray.includes(tech) ? "button-8-clicked" : "button-8"
+            }
             key={tech}
             onClick={() => handleAddToTagsArray(tech)}
           >
@@ -229,7 +231,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
             })
           }
         >
-        <option value={""} disabled hidden>
+          <option value={""} disabled hidden>
             select an option
           </option>
           <option value="used">Used this resource and loved it!</option>

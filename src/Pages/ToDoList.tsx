@@ -43,8 +43,7 @@ export default function ToDoList(props: IToDoListProps): JSX.Element {
       {toDoResources.length > 0 ? (
         toDoResources.map((oneToDo) => (
           <>
-            <div 
-                key={oneToDo.resource_id}>
+            <div key={oneToDo.resource_id}>
               <div>
                 <ResourcePreview
                   key={oneToDo.resource_id}
