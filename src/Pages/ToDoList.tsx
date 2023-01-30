@@ -5,7 +5,11 @@ import { url } from "../App";
 import { IToDoResource } from "../interfaces";
 import ResourcePreview from "../components/ResourcePreview";
 
-export default function ToDoList(): JSX.Element {
+interface IToDoListProps {
+  userID: number | null;
+}
+export default function ToDoList(props:IToDoListProps): JSX.Element {
+  const currentUserID = props.userID;
   const { userID } = useParams();
   const [toDoResources, setToDoResources] = useState<IToDoResource[]>([]);
 
@@ -20,11 +24,17 @@ export default function ToDoList(): JSX.Element {
   }, [fetchTodoListItems, userID]);
 
   const handleDeleteToDoItem = async (todoid: number) => {
+    if (
+      parseInt(userID ? userID : '-1') !== currentUserID
+    ) {
+      window.alert("return to homepage and sign in");
+    } else{
     // console.log("entered delete");
     await axios.delete(url + `/to-do-list/${todoid}`);
     // console.log("deleted");
     await fetchTodoListItems();
     // console.log("refreshed");
+    }
   };
 
   return (
