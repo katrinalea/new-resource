@@ -62,7 +62,10 @@ function App(): JSX.Element {
           }
         />
         <Route path="/add-resource" element={<NewResource userID={userID} />} />
-        <Route path="/to-do-list/:userID" element={<ToDoList userID={userID}/>} />
+        <Route
+          path="/to-do-list/:userID"
+          element={<ToDoList userID={userID} />}
+        />
         <Route
           path="/resource/:resourceID"
           element={

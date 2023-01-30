@@ -8,7 +8,7 @@ import ResourcePreview from "../components/ResourcePreview";
 interface IToDoListProps {
   userID: number | null;
 }
-export default function ToDoList(props:IToDoListProps): JSX.Element {
+export default function ToDoList(props: IToDoListProps): JSX.Element {
   const currentUserID = props.userID;
   const { userID } = useParams();
   const [toDoResources, setToDoResources] = useState<IToDoResource[]>([]);
@@ -24,16 +24,14 @@ export default function ToDoList(props:IToDoListProps): JSX.Element {
   }, [fetchTodoListItems, userID]);
 
   const handleDeleteToDoItem = async (todoid: number) => {
-    if (
-      parseInt(userID ? userID : '-1') !== currentUserID
-    ) {
+    if (parseInt(userID ? userID : "-1") !== currentUserID) {
       window.alert("return to homepage and sign in");
-    } else{
-    // console.log("entered delete");
-    await axios.delete(url + `/to-do-list/${todoid}`);
-    // console.log("deleted");
-    await fetchTodoListItems();
-    // console.log("refreshed");
+    } else {
+      // console.log("entered delete");
+      await axios.delete(url + `/to-do-list/${todoid}`);
+      // console.log("deleted");
+      await fetchTodoListItems();
+      // console.log("refreshed");
     }
   };
 

@@ -53,9 +53,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
   // console.table(tagsArray);
 
   async function handleSubmitResource(resource: ISubmitResource) {
-    if (
-      !props.userID
-    ) {
+    if (!props.userID) {
       window.alert("return to homepage and sign in");
     } else if (
       !resourceSubmit.resource_url ||
