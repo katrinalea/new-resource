@@ -96,7 +96,7 @@ export function Resource({
       )}
       {comments.map((comment) => (
         <>
-          <p>Comment posted by: User-{comment.user_id}</p>
+          <p>Comment posted by: User-{users.filter((user) => comment.user_id===user.user_id)[0].user_name}</p>
           <p key={comment.commment_id}>{comment.comment}</p>
         </>
       ))}
