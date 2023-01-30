@@ -1,3 +1,4 @@
+import { type } from "os";
 import { IResource } from "../interfaces";
 import { formatTags } from "./formatTags";
 
@@ -6,7 +7,8 @@ import { formatTags } from "./formatTags";
 export function filterResources(
   searchedText: string,
   tags: string[],
-  resources: IResource[]
+  resources: IResource[],
+  typeSwitch: boolean
 ) {
   console.log("We should have " + tags.length + " selected");
 
@@ -36,7 +38,7 @@ export function filterResources(
           );
         })
       : resources.filter((resource) => {
-          const checkedTags = checkTags(resource.tags, tags);
+          const checkedTags = checkTags(resource.tags, tags, typeSwitch);
           if (checkedTags) {
             return false;
           }
@@ -57,11 +59,20 @@ export function filterResources(
   return filteredList;
 }
 
-function checkTags(currentTags: string[], selectedTags: string[]) {
+function checkTags(
+  currentTags: string[],
+  selectedTags: string[],
+  typeSwitch: boolean
+) {
   const formattedTags = formatTags(currentTags);
+  const tagList = selectedTags.join("#").toLowerCase();
   const checkedTags = formattedTags.filter((tag) => {
-    const tagList = selectedTags.join("#").toLowerCase();
     return tagList.includes(tag.toLowerCase());
   });
+  console.log("checked ", checkedTags.length);
+  console.log("looking for  ", selectedTags.length);
+  if (typeSwitch) {
+    return checkedTags.length !== selectedTags.length;
+  }
   return checkedTags.length === 0;
 }

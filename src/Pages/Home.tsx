@@ -40,10 +40,17 @@ export default function HomePage({
       })
     );
   };
+
+  const [switchFromOrToAnd, setSwitchFromOrToAnd] = useState<boolean>(false);
+  function handleSwitchFromOrToAnd(switchFromOrToAnd: boolean): void {
+    setSwitchFromOrToAnd(!switchFromOrToAnd);
+  }
+
   const filteredResources: IResource[] = filterResources(
     searchText,
     selectedTags,
-    resources
+    resources,
+    switchFromOrToAnd
   );
   // console.table(filteredResources)
   // console.table(selectedTags)
@@ -74,6 +81,8 @@ export default function HomePage({
         <TagFilter
           handleFilterTag={handleFilterTag}
           selectedTags={selectedTags}
+          switchFromOrToAnd={switchFromOrToAnd}
+          handleSwitchFromOrToAnd={handleSwitchFromOrToAnd}
         />
       </div>
       <div className="resourcePrev-container">
