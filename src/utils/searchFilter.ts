@@ -1,4 +1,3 @@
-import { type } from "os";
 import { IResource } from "../interfaces";
 import { formatTags } from "./formatTags";
 
