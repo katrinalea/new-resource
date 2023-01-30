@@ -10,3 +10,11 @@ Comment on resources.
 Like resources.
 Sign in and sign out.
 
+# To install dependencies
+```
+yarn
+```
+# To run locally
+```
+yarn start
+```
