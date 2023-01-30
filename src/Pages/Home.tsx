@@ -68,7 +68,7 @@ export default function HomePage({
       )}
       <div>
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
-        <TagFilter handleFilterTag={handleFilterTag} />
+        <TagFilter handleFilterTag={handleFilterTag} selectedTags={selectedTags}/>
       </div>
       <div className="resourcePrev-container">
         {filteredResources.map((resource) => (
