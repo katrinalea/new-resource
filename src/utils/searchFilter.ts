@@ -10,7 +10,7 @@ export function filterResources(
   resources: IResource[],
   typeSwitch: boolean
 ) {
-  console.log("We should have " + tags.length + " selected");
+  // console.log("We should have " + tags.length + " selected");
 
   if (!searchedText && tags.length === 0) {
     return resources;
@@ -18,7 +18,7 @@ export function filterResources(
 
   // const resourceHash:HashMap = {};
 
-  console.log("tags length is zero?", tags.length === 0);
+  // console.log("tags length is zero?", tags.length === 0);
 
   const filteredList =
     tags.length === 0
@@ -69,8 +69,8 @@ function checkTags(
   const checkedTags = formattedTags.filter((tag) => {
     return tagList.includes(tag.toLowerCase());
   });
-  console.log("checked ", checkedTags.length);
-  console.log("looking for  ", selectedTags.length);
+  // console.log("checked ", checkedTags.length);
+  // console.log("looking for  ", selectedTags.length);
   if (typeSwitch) {
     return checkedTags.length !== selectedTags.length;
   }

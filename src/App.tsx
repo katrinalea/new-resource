@@ -20,7 +20,7 @@ function App(): JSX.Element {
   const [allResources, setAllResources] = useState<IResource[]>([]);
 
   useEffect(() => {
-    console.log("fetching all resources!");
+    // console.log("fetching all resources!");
     const userNamesCompleteURL = url + "/users";
     const resourcesURL = url + "/resources";
 

@@ -41,9 +41,9 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   const handleLike = async (resourceid: number, userid: number) => {
     const likeURL = url + `/resources/${resourceid}/likes`;
     const updatedLikeStatus = isLiked ? null : true;
-    console.log("handle like entered");
+    // console.log("handle like entered");
 
-    console.log(updatedLikeStatus);
+    // console.log(updatedLikeStatus);
     await axios.post(likeURL, { like: updatedLikeStatus, userId: userid });
     setIsLiked(updatedLikeStatus);
   };
@@ -51,8 +51,8 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   const handleDisike = async (resourceid: number, userid: number) => {
     const likeURL = url + `/resources/${resourceid}/likes`;
     const updatedDisLikeStatus = isLiked === false ? null : false;
-    console.log("handle dislike entered");
-    console.log(updatedDisLikeStatus);
+    // console.log("handle dislike entered");
+    // console.log(updatedDisLikeStatus);
     await axios.post(likeURL, { like: updatedDisLikeStatus, userId: userid });
 
     setIsLiked(updatedDisLikeStatus);

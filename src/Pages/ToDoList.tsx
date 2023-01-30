@@ -20,11 +20,11 @@ export default function ToDoList(): JSX.Element {
   }, [fetchTodoListItems, userID]);
 
   const handleDeleteToDoItem = async (todoid: number) => {
-    console.log("entered delete");
+    // console.log("entered delete");
     await axios.delete(url + `/to-do-list/${todoid}`);
-    console.log("deleted");
+    // console.log("deleted");
     await fetchTodoListItems();
-    console.log("refreshed");
+    // console.log("refreshed");
   };
 
   return (

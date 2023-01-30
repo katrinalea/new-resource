@@ -49,8 +49,8 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
   const tagsArray: string[] = resourceSubmit.tags.filter((tag) => {
     return tag;
   });
-  console.table(resourceSubmit.tags);
-  console.table(tagsArray);
+  // console.table(resourceSubmit.tags);
+  // console.table(tagsArray);
 
   async function handleSubmitResource(resource: ISubmitResource) {
     if (
