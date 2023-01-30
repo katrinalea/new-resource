@@ -22,9 +22,7 @@ export default function HomePage({
   const [searchText, setSearchText] = useState<string>("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-
   const handleFilterTag = (clickedTag: string) => {
-
     const currentTags = selectedTags;
 
     if (!currentTags.includes(clickedTag)) {
@@ -36,12 +34,17 @@ export default function HomePage({
         })
       ];
     }
-    setSelectedTags(currentTags.filter((tag) => {
-      return tag;
-    }));
-
-  }
-  const filteredResources: IResource[] = filterResources(searchText, selectedTags, resources);
+    setSelectedTags(
+      currentTags.filter((tag) => {
+        return tag;
+      })
+    );
+  };
+  const filteredResources: IResource[] = filterResources(
+    searchText,
+    selectedTags,
+    resources
+  );
   // console.table(filteredResources)
   // console.table(selectedTags)
 
@@ -68,7 +71,10 @@ export default function HomePage({
       )}
       <div>
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
-        <TagFilter handleFilterTag={handleFilterTag} selectedTags={selectedTags} />
+        <TagFilter
+          handleFilterTag={handleFilterTag}
+          selectedTags={selectedTags}
+        />
       </div>
       <div className="resourcePrev-container">
         {filteredResources.map((resource) => (
