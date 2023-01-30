@@ -55,15 +55,17 @@ export default function HomePage({
   // console.table(filteredResources)
   // console.table(selectedTags)
 
+  const selectedLogin = userID ? userID : "";
+
   return (
     <div className="homepage-container">
       <h1>Home</h1>
       <select
         className="dropdown"
-        defaultValue={""}
+        value={selectedLogin}
         onChange={(e) => setUserID(Number(e.target.value))}
       >
-        <option value={""} disabled hidden>
+        <option value={""} selected={!userID && true} disabled hidden>
           select a profile
         </option>
         {users.map((user) => (
