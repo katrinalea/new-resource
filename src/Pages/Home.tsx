@@ -65,7 +65,7 @@ export default function HomePage({
         value={selectedLogin}
         onChange={(e) => setUserID(Number(e.target.value))}
       >
-        <option value={""} selected={!userID && true} disabled hidden>
+        <option value={""} disabled hidden>
           select a profile
         </option>
         {users.map((user) => (
