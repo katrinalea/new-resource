@@ -1,5 +1,4 @@
 interface SearchBarProps {
-  // resources: IResource[];
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
 }

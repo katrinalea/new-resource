@@ -8,6 +8,7 @@ import { IResource } from "./interfaces";
 import axios from "axios";
 import { Resource } from "./Pages/Resource";
 import "./App.css";
+import { useLocalStorage } from "./utils/localStorage";
 
 export const url =
   process.env.NODE_ENV === "production"
@@ -15,12 +16,10 @@ export const url =
     : "http://localhost:4000";
 
 function App(): JSX.Element {
-  const [userID, setUserID] = useState<number | null>(null);
+  const [userID, setUserID] = useLocalStorage("userID", null);
   const [users, setUsers] = useState<IUser[]>([]);
   const [allResources, setAllResources] = useState<IResource[]>([]);
-
   useEffect(() => {
-    // console.log("fetching all resources!");
     const userNamesCompleteURL = url + "/users";
     const resourcesURL = url + "/resources";
 

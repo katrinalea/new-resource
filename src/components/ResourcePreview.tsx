@@ -16,18 +16,13 @@ interface IResourcePreview {
 export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean | null>(null);
 
-  // console.log("resourcePreview rerendered");
   useEffect(() => {
-    // console.log("useEffect called");
-
     const fetchLikes = async () => {
       const completeURL =
         url + `/resources/${props.resource.resource_id}/likes/${props.userID}`;
-      // console.log(completeURL);
 
       const response = await fetch(completeURL);
       const responseJSON = await response.json();
-      // console.log(responseJSON);
 
       if (responseJSON.length > 0) {
         setIsLiked(responseJSON[0].is_liked);
@@ -41,9 +36,7 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   const handleLike = async (resourceid: number, userid: number) => {
     const likeURL = url + `/resources/${resourceid}/likes`;
     const updatedLikeStatus = isLiked ? null : true;
-    // console.log("handle like entered");
 
-    // console.log(updatedLikeStatus);
     await axios.post(likeURL, { like: updatedLikeStatus, userId: userid });
     setIsLiked(updatedLikeStatus);
   };
@@ -51,8 +44,6 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   const handleDisike = async (resourceid: number, userid: number) => {
     const likeURL = url + `/resources/${resourceid}/likes`;
     const updatedDisLikeStatus = isLiked === false ? null : false;
-    // console.log("handle dislike entered");
-    // console.log(updatedDisLikeStatus);
     await axios.post(likeURL, { like: updatedDisLikeStatus, userId: userid });
 
     setIsLiked(updatedDisLikeStatus);

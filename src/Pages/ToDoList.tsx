@@ -27,11 +27,8 @@ export default function ToDoList(props: IToDoListProps): JSX.Element {
     if (parseInt(userID ? userID : "-1") !== currentUserID) {
       window.alert("return to homepage and sign in");
     } else {
-      // console.log("entered delete");
       await axios.delete(url + `/to-do-list/${todoid}`);
-      // console.log("deleted");
       await fetchTodoListItems();
-      // console.log("refreshed");
     }
   };
 

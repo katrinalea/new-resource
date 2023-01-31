@@ -23,11 +23,10 @@ export default function NewComment(props: INewCommentProps): JSX.Element {
         user_id: userID,
         resource_id: resourceID,
         comment: commentText,
-      }); //user.id, resource.id and comment text
+      });
       props.submitted(true);
       setCommentText("");
     }
-    // console.log("posted: ", commentText);
   }
 
   return (
