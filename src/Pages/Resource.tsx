@@ -60,15 +60,37 @@ export function Resource({
     <>
       <h1>{oneResource.resource_name}</h1>
       <h2>{oneResource.author_name}</h2>
-      <p>{oneResource.resource_description}</p>
-      <p>{oneResource.recommendation_reason}</p>
+      <p>
+        <b>description: </b>
+        {oneResource.resource_description}
+      </p>
+      <p>
+        <b>reason for recommendation: </b>
+        {oneResource.recommendation_reason}
+      </p>
       <a href={oneResource.resource_url}>{oneResource.resource_url}</a>
-      <p>{filteredUser[0].user_name}</p>
-      <small>{formatSubmissionDate(oneResource.time_of_post)}</small>
-      <p>{oneResource.selene_week}</p>
-      <p>{oneResource.content_type}</p>
-      <p>{oneResource.usage_status}</p>
-
+      <p>
+        <b>submitted by: </b>
+        {filteredUser[0].user_name}
+      </p>
+      <p>
+        {" "}
+        <b>submitted on: </b>
+        {formatSubmissionDate(oneResource.time_of_post)}
+      </p>
+      <p>
+        <b>which Selene week should you do it in? </b>
+        {oneResource.selene_week}
+      </p>
+      <p>
+        <b>content type: </b>
+        {oneResource.content_type}
+      </p>
+      <p>
+        <b>uploader usage status: </b>
+        {oneResource.usage_status}
+      </p>
+      <b>tags: </b>
       {formatTags(oneResource.tags).map((tag, i) => (
         <p key={i}> {tag}</p>
       ))}
