@@ -220,3 +220,10 @@ body {
   white-space: nowrap;
   margin: 10px 5px 10px 5px;
 }
+
+.input-url:invalid{
+  color: orangered;
+}
+.input-url:valid{
+  color: greenyellow;
+}

@@ -15,6 +15,9 @@ export const url =
     ? "https://coding-resources-backend.onrender.com"
     : "http://localhost:4000";
 
+export function checkResources(){
+}
+
 function App(): JSX.Element {
   const [userID, setUserID] = useLocalStorage("userID", null);
   const [users, setUsers] = useState<IUser[]>([]);
@@ -33,7 +36,7 @@ function App(): JSX.Element {
     };
     fetchUserNames();
     fetchAllResources();
-  }, []);
+  }, [allResources, checkResources()]);
 
   return (
     <div>
@@ -60,7 +63,7 @@ function App(): JSX.Element {
             />
           }
         />
-        <Route path="/add-resource" element={<NewResource userID={userID} />} />
+        <Route path="/add-resource" element={<NewResource userID={userID} checkResources={checkResources}/>} />
         <Route
           path="/to-do-list/:userID"
           element={<ToDoList userID={userID} />}

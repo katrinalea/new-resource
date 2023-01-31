@@ -5,6 +5,7 @@ import { url } from "../App";
 
 interface INewResourceProps {
   userID: number | null;
+  checkResources: () => void;
 }
 export const technologies = [
   "React",
@@ -28,8 +29,9 @@ export const seleneWeeks = [
 ];
 
 export default function NewResource(props: INewResourceProps): JSX.Element {
+  
   const emptySubmission = {
-    resource_url: "",
+    resource_url: "https://",
     author_name: "",
     resource_name: "",
     resource_description: "",
@@ -63,6 +65,7 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
       await axios.post(`${url}/resources`, resource);
       setResourceSubmit(emptySubmission);
       setAttemptedSubmit(false);
+      props.checkResources();
       window.alert("resource submitted");
     }
   }
@@ -137,7 +140,8 @@ export default function NewResource(props: INewResourceProps): JSX.Element {
           Resource URL:
         </p>
         <input
-          type="text"
+          className="input-url"
+          type="url"
           placeholder=""
           value={resourceSubmit.resource_url}
           onChange={(e) =>
