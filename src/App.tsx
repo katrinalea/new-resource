@@ -19,9 +19,7 @@ function App(): JSX.Element {
   const [userID, setUserID] = useLocalStorage("userID", null)
   const [users, setUsers] = useState<IUser[]>([]);
   const [allResources, setAllResources] = useState<IResource[]>([]);
-  console.log("user id staying with local storage",userID)
   useEffect(() => {
-    // console.log("fetching all resources!");
     const userNamesCompleteURL = url + "/users";
     const resourcesURL = url + "/resources";
 
