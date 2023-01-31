@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function getStorageValue(key: string, defaultValue: unknown) {
   // getting stored value
   const saved = localStorage.getItem(key);
-  if (typeof saved === "string"){
-    const initial = JSON.parse(saved);    
-  return initial 
+  if (typeof saved === "string") {
+    const initial = JSON.parse(saved);
+    return initial;
   }
   return defaultValue;
 }

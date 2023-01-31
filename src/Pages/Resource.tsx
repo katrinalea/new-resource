@@ -23,9 +23,7 @@ export function Resource({
 
   const { resourceID } = useParams();
 
-
   useEffect(() => {
-
     const fetchComments = async () => {
       const completeURL = url + `/resources/${resourceID}/comments`;
 

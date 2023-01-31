@@ -17,7 +17,6 @@ export default function ResourcePreview(props: IResourcePreview): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean | null>(null);
 
   useEffect(() => {
-
     const fetchLikes = async () => {
       const completeURL =
         url + `/resources/${props.resource.resource_id}/likes/${props.userID}`;

@@ -16,7 +16,7 @@ export const url =
     : "http://localhost:4000";
 
 function App(): JSX.Element {
-  const [userID, setUserID] = useLocalStorage("userID", null)
+  const [userID, setUserID] = useLocalStorage("userID", null);
   const [users, setUsers] = useState<IUser[]>([]);
   const [allResources, setAllResources] = useState<IResource[]>([]);
   useEffect(() => {

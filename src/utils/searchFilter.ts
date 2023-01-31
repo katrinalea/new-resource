@@ -1,24 +1,20 @@
 import { IResource } from "../interfaces";
 import { formatTags } from "./formatTags";
 
-
 export function filterResources(
   searchedText: string,
   tags: string[],
   resources: IResource[],
   typeSwitch: boolean
 ) {
-
   if (!searchedText && tags.length === 0) {
     return resources;
   }
 
-
-
   const filteredList =
     tags.length === 0
       ? resources.filter((resource) => {
-          const allTags: string = resource.tags.join("#").toLowerCase(); 
+          const allTags: string = resource.tags.join("#").toLowerCase();
           return (
             resource.author_name
               .toLowerCase()
@@ -29,7 +25,7 @@ export function filterResources(
             resource.resource_name
               .toLowerCase()
               .includes(searchedText.toLowerCase()) ||
-            allTags.includes(searchedText.toLowerCase()) 
+            allTags.includes(searchedText.toLowerCase())
           );
         })
       : resources.filter((resource) => {
@@ -48,7 +44,7 @@ export function filterResources(
             resource.resource_name
               .toLowerCase()
               .includes(searchedText.toLowerCase()) ||
-            searchedTags.includes(searchedText.toLowerCase()) 
+            searchedTags.includes(searchedText.toLowerCase())
           );
         });
   return filteredList;
