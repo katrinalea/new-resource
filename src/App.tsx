@@ -15,7 +15,7 @@ export const url =
     ? "https://coding-resources-backend.onrender.com"
     : "http://localhost:4000";
 
-export function checkResources(){
+export function checkResources() {
   return null;
 }
 
@@ -64,7 +64,12 @@ function App(): JSX.Element {
             />
           }
         />
-        <Route path="/add-resource" element={<NewResource userID={userID} checkResources={checkResources}/>} />
+        <Route
+          path="/add-resource"
+          element={
+            <NewResource userID={userID} checkResources={checkResources} />
+          }
+        />
         <Route
           path="/to-do-list/:userID"
           element={<ToDoList userID={userID} />}

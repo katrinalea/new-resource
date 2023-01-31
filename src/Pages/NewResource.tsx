@@ -29,7 +29,6 @@ export const seleneWeeks = [
 ];
 
 export default function NewResource(props: INewResourceProps): JSX.Element {
-  
   const emptySubmission = {
     resource_url: "https://",
     author_name: "",
