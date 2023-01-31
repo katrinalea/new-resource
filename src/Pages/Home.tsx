@@ -52,8 +52,6 @@ export default function HomePage({
     resources,
     switchFromOrToAnd
   );
-  // console.table(filteredResources)
-  // console.table(selectedTags)
 
   const selectedLogin = userID ? userID : "";
 
