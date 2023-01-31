@@ -40,13 +40,11 @@ export default function ToDoList(props: IToDoListProps): JSX.Element {
       <h1>To Do List</h1>
 
       {/* need to get the id of the resource from the resources fetched in home ?? */}
-      {toDoResources.length > 0 ? (
+      {parseInt(userID ? userID : "-1") !== currentUserID ? <p>Please login!</p> :
+      toDoResources.length > 0 ? (
         toDoResources.map((oneToDo) => (
-          <>
             <div key={oneToDo.resource_id}>
-              <div>
                 <ResourcePreview
-                  key={oneToDo.resource_id}
                   resource={oneToDo}
                   userID={Number(userID)}
                 />
@@ -56,9 +54,7 @@ export default function ToDoList(props: IToDoListProps): JSX.Element {
                 >
                   🗑️{" "}
                 </button>
-              </div>
             </div>
-          </>
         ))
       ) : (
         <p>your to-do list is empty!</p>
