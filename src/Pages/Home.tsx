@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ResourcePreview from "../components/ResourcePreview";
 import SearchBar from "../components/SearchBar";
 import TagFilter from "../components/TagFilter";
@@ -20,38 +20,52 @@ export default function HomePage({
   userID,
 }: IHomePageProps): JSX.Element {
   const [searchText, setSearchText] = useState<string>("");
-  const filteredResources = filterResources(searchText, resources);
-  const [finalFilteredResources, setFinalFilteredResources] =
-    useState<IResource[]>(filteredResources);
-  const [lastClickedTag, setLastClickedTag] = useState<string>("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const handleFilterTag = (clickedTag: string) => {
-    if (clickedTag === lastClickedTag) {
-      setFinalFilteredResources(filteredResources);
-      setLastClickedTag("");
-      return;
+    const currentTags = selectedTags;
+
+    if (!currentTags.includes(clickedTag)) {
+      currentTags.push(clickedTag);
+    } else {
+      delete currentTags[
+        currentTags.findIndex((tag) => {
+          return tag === clickedTag;
+        })
+      ];
     }
-    setLastClickedTag(clickedTag);
-    const tagFilteredResources = filteredResources.filter((resource) => {
-      const allResourceTags: string = resource.tags.join("#").toLowerCase();
-      console.log("clicked", clickedTag);
-      return allResourceTags.includes(clickedTag.toLowerCase());
-    });
-    setFinalFilteredResources(tagFilteredResources);
+    setSelectedTags(
+      currentTags.filter((tag) => {
+        return tag;
+      })
+    );
   };
 
-  useEffect(() => {
-    setFinalFilteredResources(filteredResources);
-  }, [filteredResources]);
+  const [switchFromOrToAnd, setSwitchFromOrToAnd] = useState<boolean>(false);
+  function handleSwitchFromOrToAnd(switchFromOrToAnd: boolean): void {
+    setSwitchFromOrToAnd(!switchFromOrToAnd);
+  }
+
+  const filteredResources: IResource[] = filterResources(
+    searchText,
+    selectedTags,
+    resources,
+    switchFromOrToAnd
+  );
+  // console.table(filteredResources)
+  // console.table(selectedTags)
+
+  const selectedLogin = userID ? userID : "";
 
   return (
     <div className="homepage-container">
       <h1>Home</h1>
       <select
         className="dropdown"
+        value={selectedLogin}
         onChange={(e) => setUserID(Number(e.target.value))}
       >
-        <option selected={!userID && true} disabled>
+        <option value={""} disabled hidden>
           select a profile
         </option>
         {users.map((user) => (
@@ -67,10 +81,15 @@ export default function HomePage({
       )}
       <div>
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
-        <TagFilter handleFilterTag={handleFilterTag} />
+        <TagFilter
+          handleFilterTag={handleFilterTag}
+          selectedTags={selectedTags}
+          switchFromOrToAnd={switchFromOrToAnd}
+          handleSwitchFromOrToAnd={handleSwitchFromOrToAnd}
+        />
       </div>
       <div className="resourcePrev-container">
-        {finalFilteredResources.map((resource) => (
+        {filteredResources.map((resource) => (
           <ResourcePreview
             key={resource.resource_id}
             resource={resource}

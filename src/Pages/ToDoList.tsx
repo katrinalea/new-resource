@@ -5,7 +5,11 @@ import { url } from "../App";
 import { IToDoResource } from "../interfaces";
 import ResourcePreview from "../components/ResourcePreview";
 
-export default function ToDoList(): JSX.Element {
+interface IToDoListProps {
+  userID: number | null;
+}
+export default function ToDoList(props: IToDoListProps): JSX.Element {
+  const currentUserID = props.userID;
   const { userID } = useParams();
   const [toDoResources, setToDoResources] = useState<IToDoResource[]>([]);
 
@@ -20,11 +24,15 @@ export default function ToDoList(): JSX.Element {
   }, [fetchTodoListItems, userID]);
 
   const handleDeleteToDoItem = async (todoid: number) => {
-    console.log("entered delete");
-    await axios.delete(url + `/to-do-list/${todoid}`);
-    console.log("deleted");
-    await fetchTodoListItems();
-    console.log("refreshed");
+    if (parseInt(userID ? userID : "-1") !== currentUserID) {
+      window.alert("return to homepage and sign in");
+    } else {
+      // console.log("entered delete");
+      await axios.delete(url + `/to-do-list/${todoid}`);
+      // console.log("deleted");
+      await fetchTodoListItems();
+      // console.log("refreshed");
+    }
   };
 
   return (
@@ -32,25 +40,19 @@ export default function ToDoList(): JSX.Element {
       <h1>To Do List</h1>
 
       {/* need to get the id of the resource from the resources fetched in home ?? */}
-      {toDoResources.length > 0 ? (
+      {parseInt(userID ? userID : "-1") !== currentUserID ? (
+        <p>Please login!</p>
+      ) : toDoResources.length > 0 ? (
         toDoResources.map((oneToDo) => (
-          <>
-            <div>
-              <div>
-                <ResourcePreview
-                  key={oneToDo.resource_id}
-                  resource={oneToDo}
-                  userID={Number(userID)}
-                />
-                <button
-                  className="button-30"
-                  onClick={() => handleDeleteToDoItem(oneToDo.to_do_item_id)}
-                >
-                  🗑️{" "}
-                </button>
-              </div>
-            </div>
-          </>
+          <div key={oneToDo.resource_id}>
+            <ResourcePreview resource={oneToDo} userID={Number(userID)} />
+            <button
+              className="button-30"
+              onClick={() => handleDeleteToDoItem(oneToDo.to_do_item_id)}
+            >
+              🗑️{" "}
+            </button>
+          </div>
         ))
       ) : (
         <p>your to-do list is empty!</p>

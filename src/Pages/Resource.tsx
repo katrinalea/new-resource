@@ -23,18 +23,18 @@ export function Resource({
 
   const { resourceID } = useParams();
 
-  console.log("Resource.tsx re-rendered!");
+  // console.log("Resource.tsx re-rendered!");
 
   useEffect(() => {
-    console.log("Resource.tsx useEffect called");
+    // console.log("Resource.tsx useEffect called");
 
     const fetchComments = async () => {
       const completeURL = url + `/resources/${resourceID}/comments`;
-      console.log(completeURL);
+      // console.log(completeURL);
 
       const response = await fetch(completeURL);
       const responseJSON = await response.json();
-      console.log(responseJSON);
+      // console.log(responseJSON);
 
       if (responseJSON.length > 0) {
         setComments(responseJSON);
@@ -46,7 +46,7 @@ export function Resource({
   const oneResourceArray = allResources.filter(
     (resource) => resource.resource_id === Number(resourceID)
   );
-  console.log({ oneResourceArray });
+  // console.log({ oneResourceArray });
   if (oneResourceArray.length < 1) {
     console.error("expected full array, got an empty oneResourceArray");
   }
@@ -96,7 +96,13 @@ export function Resource({
       )}
       {comments.map((comment) => (
         <>
-          <p>Comment posted by: User-{comment.user_id}</p>
+          <p>
+            Comment posted by: User-
+            {
+              users.filter((user) => comment.user_id === user.user_id)[0]
+                .user_name
+            }
+          </p>
           <p key={comment.commment_id}>{comment.comment}</p>
         </>
       ))}

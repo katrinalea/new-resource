@@ -20,7 +20,7 @@ function App(): JSX.Element {
   const [allResources, setAllResources] = useState<IResource[]>([]);
 
   useEffect(() => {
-    console.log("fetching all resources!");
+    // console.log("fetching all resources!");
     const userNamesCompleteURL = url + "/users";
     const resourcesURL = url + "/resources";
 
@@ -62,7 +62,10 @@ function App(): JSX.Element {
           }
         />
         <Route path="/add-resource" element={<NewResource userID={userID} />} />
-        <Route path="/to-do-list/:userID" element={<ToDoList />} />
+        <Route
+          path="/to-do-list/:userID"
+          element={<ToDoList userID={userID} />}
+        />
         <Route
           path="/resource/:resourceID"
           element={

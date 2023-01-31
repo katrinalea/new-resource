@@ -27,7 +27,7 @@ export default function NewComment(props: INewCommentProps): JSX.Element {
       props.submitted(true);
       setCommentText("");
     }
-    console.log("posted: ", commentText);
+    // console.log("posted: ", commentText);
   }
 
   return (
